@@ -1,2 +1,3 @@
-# sudoku-play
- Simple Sudoku Play Online
+# Simple Sudoku Game Online
+
+This is a simple sudoku game.
