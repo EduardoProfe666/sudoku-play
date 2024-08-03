@@ -345,15 +345,13 @@ function showWinningModal() {
 
             const shareButton = Swal.getCancelButton();
             shareButton.addEventListener('click', () => {
-                html2canvas(document.getElementById("sudoku-grid")).then(canvas => {
+                html2canvas(document.body).then(canvas => {
                     const imgData = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     link.download = 'sudoku-result.png';
                     link.href = imgData;
-                    document.body.appendChild(link);
                     link.click();
-                    document.body.removeChild(link);
-                    Swal.close();
+                    location.reload();
                 });
             });
         }
