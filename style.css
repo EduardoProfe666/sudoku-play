@@ -1,3 +1,5 @@
+/*Main Styles of Sudoku Game by EduardoProfe666*/
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -47,6 +49,21 @@ body {
     transition: background-color 0.3s;
 }
 #start-button:hover {
+    background-color: #45a049;
+}
+#auto-fill-button, #manual-fill-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+#auto-fill-button:hover, #manual-fill-button:hover {
     background-color: #45a049;
 }
 #title {
