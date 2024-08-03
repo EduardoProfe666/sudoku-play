@@ -1,8 +1,6 @@
-<!-- Made with ❤️ by EduardoProfe666🎩 -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -26,21 +24,24 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  </head>
-  <body>
-    <h1 id="title">Sudoku Online</h1>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+</head>
+<body>
+    <div id="title-container">
+        <h1 id="title">Sudoku Online</h1>
+        <a id="hat" href="https://github.com/EduardoProfe666" target="_blank">🎩</a>
+    </div>
     <div id="message">Choose the game's fill mode</div>
     <div id="button-container">
-      <button id="auto-fill-button"><i class="fas fa-magic"></i> Auto Fill</button>
-      <button id="manual-fill-button"><i class="fas fa-pencil-alt"></i> Manual Fill</button>
+        <button id="auto-fill-button"><i class="fas fa-magic"></i> Auto Fill</button>
+        <button id="manual-fill-button"><i class="fas fa-pencil-alt"></i> Manual Fill</button>
     </div>
     <div id="timer"><span id="time-emoji">⏱️</span> Elapsed Time: <span id="timer-display">00:00:000</span></div>
     <div id="sudoku-grid">
-      <!-- Cells will be generated automatically via Javascript ;) -->
+        <!-- Cells will be generated automatically via Javascript ;) -->
     </div>
 
 
     <script src="scripts.js"></script>
-  </body>
+</body>
 </html>

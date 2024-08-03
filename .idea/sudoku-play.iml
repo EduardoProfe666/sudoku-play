@@ -13,5 +13,7 @@
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="html2canvas" level="application" />
+    <orderEntry type="library" name="@tsparticles/confetti" level="application" />
+    <orderEntry type="library" name="dom-to-image" level="application" />
   </component>
 </module>
