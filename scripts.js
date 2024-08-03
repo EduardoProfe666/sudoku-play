@@ -314,7 +314,7 @@ document.getElementById("manual-fill-button").addEventListener("click", () => {
     });
 });
 
-// Modal Winning
+// Modal Winning-Congrats!!!
 function showWinningModal() {
     const timeDisplay = document.getElementById("timer-display").textContent;
     const difficulty = localStorage.getItem('sudokuDifficulty') || 'Unknown';
@@ -327,30 +327,45 @@ function showWinningModal() {
     }
 
     Swal.fire({
-        title: '¡Congratulations! You complete the game',
+        title: '¡Congratulations!\nYou complete sudoku',
         icon: 'success',
         html: `
             <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
             <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Automático' : 'Manual'}</strong></p>
             ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
         `,
-        confirmButtonText: 'Restart',
-        showCancelButton: true,
-        cancelButtonText: 'Share',
+        confirmButtonText: 'Restart Game',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
         didOpen: () => {
-            // No necesitamos agregar eventos aquí ya que vamos a manejarlo de otra manera
+            const restartButton = Swal.getConfirmButton();
+            restartButton.addEventListener('click', () => {
+                location.reload();
+            });
+
+            //-------- Confetti ---------//
+            const duration = 10 * 1000; // 10 segundos
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+
         }
-    }).then(() => {
-        
-        html2canvas(Swal.getContent()).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = 'sudoku-modal-screenshot.png';
-            link.href = imgData;
-            link.click();
-            location.reload();
-        });
-    });
+    })
 }
 
 // ----- Sudoku Initial Animation ----- //
@@ -388,4 +403,5 @@ function startTimer(){
     startTime = new Date().getTime();
     timerInterval = setInterval(updateTimer, 10);
 }
+
 

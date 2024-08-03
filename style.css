@@ -21,6 +21,36 @@ body {
     }
 }
 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes smallMove {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(5px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 #manual-window {
     display: flex;
     flex-direction: column;
@@ -100,9 +130,15 @@ body {
     margin-right: 5px;
 }
 
+#title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 #title {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 #message {
@@ -137,4 +173,14 @@ body {
     #sudoku-grid, #manual-sudoku-grid {
         width: 95%;
     }
+}
+
+#hat {
+    text-decoration: none;
+    color: inherit;
+    font-size: 24px;
+}
+
+#hat {
+    animation: pulse 1s infinite;
 }
