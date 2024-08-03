@@ -222,7 +222,7 @@ document.getElementById("auto-fill-button").addEventListener("click", () => {
             <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;" title="Very Hard"></i>
         `,
         showCancelButton: false,
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: 'Start Game',
         preConfirm: () => {
             if (difficulty === 0) {
                 Swal.showValidationMessage('You must select a difficulty');
@@ -291,7 +291,7 @@ document.getElementById("manual-fill-button").addEventListener("click", () => {
             </div>
         `,
         showCancelButton: false,
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: 'Start Game',
         didClose: () => {
 
         },
@@ -327,14 +327,36 @@ function showWinningModal() {
     }
 
     Swal.fire({
-        title: '¡Felicidades! Has ganado el juego',
+        title: '¡Congratulations! You complete the game',
         icon: 'success',
         html: `
-            <p>Tiempo transcurrido: <strong>${timeDisplay}</strong></p>
-            <p>Modo de juego: <strong>${gameMode === 'auto' ? 'Automático' : 'Manual'}</strong></p>
-            ${gameMode === 'auto' ? `<p>Dificultad: <strong>${difficultyStars}</strong></p>` : ''}
+            <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
+            <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Automático' : 'Manual'}</strong></p>
+            ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
         `,
-        confirmButtonText: 'Aceptar'
+        confirmButtonText: 'Restart',
+        showCancelButton: true,
+        cancelButtonText: 'Share',
+        didOpen: () => {
+            const restartButton = Swal.getConfirmButton();
+            restartButton.addEventListener('click', () => {
+                location.reload();
+            });
+
+            const shareButton = Swal.getCancelButton();
+            shareButton.addEventListener('click', () => {
+                html2canvas(document.getElementById("sudoku-grid")).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    link.download = 'sudoku-result.png';
+                    link.href = imgData;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    Swal.close();
+                });
+            });
+        }
     });
 }
 
