@@ -1,6 +1,7 @@
+<!-- Made with ❤️ by EduardoProfe666🎩 -->
+
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Made with love by EduardoProfe666 -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,12 +29,16 @@
   </head>
   <body>
     <h1 id="title">Sudoku Online</h1>
-    <div id="message">Rellene los números iniciales</div>
+    <div id="message">Choose the game's fill mode</div>
+    <div id="button-container">
+      <button id="auto-fill-button"><i class="fas fa-magic"></i> Auto Fill</button>
+      <button id="manual-fill-button"><i class="fas fa-pencil-alt"></i> Manual Fill</button>
+    </div>
+    <div id="timer"><span id="time-emoji">⏱️</span> Tiempo Transcurrido: <span id="timer-display">00:00:000</span></div>
     <div id="sudoku-grid">
       <!-- Cells will be generated automatically via Javascript ;) -->
     </div>
-    <button id="auto-fill-button">Rellenar Automáticamente</button>
-    <button id="manual-fill-button">Rellenar Manualmente</button>
+
 
     <script src="scripts.js"></script>
   </body>
