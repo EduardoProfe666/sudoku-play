@@ -338,23 +338,18 @@ function showWinningModal() {
         showCancelButton: true,
         cancelButtonText: 'Share',
         didOpen: () => {
-            const restartButton = Swal.getConfirmButton();
-            restartButton.addEventListener('click', () => {
-                location.reload();
-            });
-
-            const shareButton = Swal.getCancelButton();
-            shareButton.addEventListener('click', () => {
-                html2canvas(document.body).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const link = document.createElement('a');
-                    link.download = 'sudoku-result.png';
-                    link.href = imgData;
-                    link.click();
-                    location.reload();
-                });
-            });
+            // No necesitamos agregar eventos aquí ya que vamos a manejarlo de otra manera
         }
+    }).then(() => {
+        
+        html2canvas(Swal.getContent()).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'sudoku-modal-screenshot.png';
+            link.href = imgData;
+            link.click();
+            location.reload();
+        });
     });
 }
 
