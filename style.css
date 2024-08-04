@@ -1,15 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 20px;
-}
-
+/* --------------------------------------- Animations ------------------------------------------- */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -26,7 +15,7 @@ body {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.1);
+        transform: scale(1.15);
     }
     100% {
         transform: scale(1);
@@ -49,6 +38,21 @@ body {
     100% {
         transform: translateX(0);
     }
+}
+
+
+
+/* ---------------------------------------- Main Components Styles ------------------------------------ */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 15px;
 }
 
 #manual-window {
@@ -96,6 +100,9 @@ body {
     border-bottom: 2px solid #000;
 }
 
+
+
+/* ------------------------------------------------ Buttons Styles --------------------------------------- */
 #auto-fill-button, #manual-fill-button {
     margin: 0 10px;
     padding: 10px 20px;
@@ -133,7 +140,7 @@ body {
 #title-container {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 }
 
 #title {
@@ -179,6 +186,9 @@ body {
     text-decoration: none;
     color: inherit;
     font-size: 24px;
+    position: relative;
+    left: -5px;
+    top: -3px;
 }
 
 #hat {

@@ -4,6 +4,7 @@ let otherNumbers = Array.from({length: 9}, () => Array(9).fill(0));
 let sudokuAnimationInterval;
 let startTime;
 let timerInterval;
+let intervalConfetti;
 
 
 // ---------------------------------------------- Main Engine ------------------------------------------------- //
@@ -165,6 +166,27 @@ function generateSudoku(difficulty, numbers = initialNumbers) {
 
 // -------------------------------------------------- Visuals ----------------------------------------------- //
 
+// Restart Game
+function restartGame(){
+    initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
+    otherNumbers = Array.from({length: 9}, () => Array(9).fill(0));
+    sudokuAnimationInterval = undefined;
+    startTime = undefined;
+    timerInterval = undefined;
+
+    document.getElementById("auto-fill-button").style.display = "block";
+    document.getElementById("manual-fill-button").style.display = "block";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("timer").style.display = "none";
+
+    localStorage.setItem('sudokuDifficulty', undefined);
+    localStorage.setItem('sudokuGameMode', undefined);
+    localStorage.setItem('sudokuGameMode', undefined);
+
+    generateInitialSudoku();
+    startSudokuAnimation();
+}
+
 // Sudoku Grid Creation
 function createSudokuGrid(editable = true, grid = document.getElementById("sudoku-grid"), initial = false, numbers = initialNumbers) {
     grid.classList.remove('magictime', 'vanishIn');
@@ -212,7 +234,7 @@ document.getElementById("auto-fill-button").addEventListener("click", () => {
     let difficulty = 0;
 
     Swal.fire({
-        title: 'Choose the game`s difficulty',
+        title: 'Choose the game\'s difficulty',
         icon: 'question',
         html: `
             <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;" title="Very Easy"></i>
@@ -331,7 +353,7 @@ function showWinningModal() {
         icon: 'success',
         html: `
             <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
-            <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Automático' : 'Manual'}</strong></p>
+            <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
             ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
         `,
         confirmButtonText: 'Restart Game',
@@ -340,7 +362,8 @@ function showWinningModal() {
         didOpen: () => {
             const restartButton = Swal.getConfirmButton();
             restartButton.addEventListener('click', () => {
-                location.reload();
+                clearInterval(intervalConfetti)
+                restartGame();
             });
 
             //-------- Confetti ---------//
@@ -351,12 +374,11 @@ function showWinningModal() {
             function randomInRange(min, max) {
                 return Math.random() * (max - min) + min;
             }
-
-            const interval = setInterval(function () {
+            intervalConfetti = setInterval(function () {
                 const timeLeft = animationEnd - Date.now();
 
                 if (timeLeft <= 0) {
-                    return clearInterval(interval);
+                    return clearInterval(intervalConfetti);
                 }
 
                 const particleCount = 50 * (timeLeft / duration);
