@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
     <title>Sudoku Online</title>
 
     <!--  Meta Stuff  -->
@@ -21,7 +21,7 @@
     <meta property="og:image" content="https://sudoku-online.onrender.com/banner.png">
 
     <!--  Imports  -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
@@ -40,8 +40,6 @@
     <div id="sudoku-grid">
         <!-- Cells will be generated automatically via Javascript ;) -->
     </div>
-
-
-    <script src="scripts.js"></script>
+    <script type="module" src="src/js/main.js"></script>
 </body>
 </html>
