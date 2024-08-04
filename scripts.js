@@ -8,7 +8,6 @@ let intervalConfetti;
 
 
 // ---------------------------------------------- Main Engine ------------------------------------------------- //
-
 function isSafe(grid, row, col, num) {
     for (let x = 0; x < 9; x++) {
         if (grid[row][x] === num || grid[x][col] === num) {

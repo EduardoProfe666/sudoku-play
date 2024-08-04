@@ -137,6 +137,14 @@ body {
     margin-right: 5px;
 }
 
+#button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+/* ------------------------------------------- Other Components Styles ------------------------------------ */
 #title-container {
     display: flex;
     align-items: center;
@@ -166,12 +174,18 @@ body {
     color: #505050;
 }
 
-#button-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+#hat {
+    text-decoration: none;
+    color: inherit;
+    font-size: 24px;
+    position: relative;
+    left: -5px;
+    top: -3px;
+    animation: pulse 1s infinite;
 }
 
+
+/* ----------------------------------- Responsive Stuff (Media Queries) ----------------------------------- */
 @media (max-width: 600px) {
     body {
         padding: 10px;
@@ -182,15 +196,4 @@ body {
     }
 }
 
-#hat {
-    text-decoration: none;
-    color: inherit;
-    font-size: 24px;
-    position: relative;
-    left: -5px;
-    top: -3px;
-}
 
-#hat {
-    animation: pulse 1s infinite;
-}
