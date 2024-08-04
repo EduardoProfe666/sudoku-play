@@ -185,7 +185,7 @@ function generateSudoku(difficulty, numbers = initialNumbers) {
 function startConfetti(){
     const duration = 10 * 1000; // 10 segs
     const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+    const defaults = { startVelocity: 30, spread: 360, ticks: 120, zIndex: 0 };
 
     function randomInRange(min, max) {
         return Math.random() * (max - min) + min;
@@ -197,7 +197,7 @@ function startConfetti(){
             return clearInterval(intervalConfetti);
         }
 
-        const particleCount = 50 * (timeLeft / duration);
+        const particleCount = 30 * (timeLeft / duration);
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
     }, 250);
@@ -309,7 +309,7 @@ function prepareModalAutoFill(){
             <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;" title="Very Hard"></i>
         `,
             showCancelButton: false,
-            confirmButtonText: 'Start Game',
+            confirmButtonText: '<i class="fas fa-play"></i> Start Game',
             preConfirm: () => {
                 if (difficulty === 0) {
                     Swal.showValidationMessage('You must select a difficulty');
@@ -374,7 +374,7 @@ function prepareModalManualFill(){
             </div>
         `,
             showCancelButton: false,
-            confirmButtonText: 'Start Game',
+            confirmButtonText: '<i class="fas fa-play"></i> Start Game',
             didOpen: () => {
                 initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
                 const manualGrid = document.getElementById("manual-sudoku-grid");
@@ -410,7 +410,7 @@ function showWinningModal() {
             <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
             ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
         `,
-        confirmButtonText: 'Restart Game',
+        confirmButtonText: '<i class="fas fa-redo"></i> Restart Game',
         allowOutsideClick: false,
         allowEscapeKey: false,
         didOpen: () => {
