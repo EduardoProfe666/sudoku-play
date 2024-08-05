@@ -103,7 +103,7 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                         numbers[row][col] = value;
                     }
                     if (isSudokuSolved(numbers)) {
-                        stopTimer   ();
+                        stopTimer();
                         showWinningModal();
                     }
                 });
