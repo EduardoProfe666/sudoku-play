@@ -36,53 +36,22 @@ function isValidGroup(group) {
     return true;
 }
 
-function findEmptyCell(board) {
-    for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
-            if (board[row][col] === 0) return [row, col];
+function countClues(board) {
+    let clueCount = 0;
+
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[row].length; col++) {
+            if (board[row][col] !== 0) {
+                clueCount++;
+            }
         }
     }
-    return null;
+
+    return clueCount;
 }
 
-function isValidMove(board, num, row, col) {
-    return !board[row].includes(num) &&
-        !board.map(r => r[col]).includes(num) &&
-        !isInSubgrid(board, num, row, col);
-}
-
-function isInSubgrid(board, num, row, col) {
-    const startRow = Math.floor(row / 3) * 3;
-    const startCol = Math.floor(col / 3) * 3;
-    for (let r = 0; r < 3; r++) {
-        for (let c = 0; c < 3; c++) {
-            if (board[startRow + r][startCol + c] === num) return true;
-        }
-    }
-    return false;
-}
-
-function hasUniqueSolution(board) {
-    const solutions = [];
-    solveSudokuWithCount(board, solutions);
-    return solutions.length === 1;
-}
-
-function solveSudokuWithCount(board, solutions) {
-    const emptyCell = findEmptyCell(board);
-    if (!emptyCell) {
-        solutions.push([...board.map(row => [...row])]);
-        return;
-    }
-
-    const [row, col] = emptyCell;
-    for (let num = 1; num <= 9; num++) {
-        if (isValidMove(board, num, row, col)) {
-            board[row][col] = num;
-            solveSudokuWithCount(board, solutions);
-            board[row][col] = 0; // Backtrack
-        }
-    }
+function hasAtLeast17Clues(board) {
+    return countClues(board) >= 17;
 }
 
 
@@ -140,10 +109,7 @@ function solveSudoku(board) {
 
 // ------------- Sudoku Solvable? - Manual Fill -------------- //
 function isSudokuSolvable(grid){
-    if(isValidSudoku(grid.map(row => [...row])) && hasUniqueSolution(grid.map(row => [...row])))
-        return solveSudoku(grid.map(row => [...row]));
-
-    return undefined;
+    return isValidSudoku(grid.map(row => [...row])) && hasAtLeast17Clues(grid.map(row => [...row]));
 }
 
 

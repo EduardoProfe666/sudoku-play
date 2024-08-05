@@ -121,10 +121,18 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
 
 // --------------------------------------------------- Modals ---------------------------------------------------- //
 // -------- Common Stuff ------- //
-function startGame(difficulty) {
+function startGame(difficulty, grid) {
     stopSudokuAnimation();
     if(difficulty)
         generateSudoku(difficulty)
+
+    if(grid) {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                solution[row][col] = grid[row][col];
+            }
+        }
+    }
 
     createSudokuGrid(false);
 
@@ -217,6 +225,14 @@ function prepareModalManualFill(){
             </div>
         `,
             showCancelButton: false,
+            footer: '<a target="_blank" href="https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/">Human Solvable Sudoku Article</a>',
+            preConfirm: () => {
+                if(!isSudokuSolvable(initialNumbers)){
+                    Swal.showValidationMessage('Given sudoku must has a unique solution and be human solvable (at least 17 clues)');
+                    return false;
+                }
+                return true;
+            },
             confirmButtonText: '<i class="fas fa-play"></i> Start Game',
             didOpen: () => {
                 initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
@@ -225,7 +241,7 @@ function prepareModalManualFill(){
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                startGame();
+                startGame(undefined, solveSudoku(initialNumbers.map(row => [...row])));
                 localStorage.setItem('sudokuGameMode', 'manual');
             }
         });
