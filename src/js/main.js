@@ -257,6 +257,7 @@ function showWinningModal() {
                 restartGame();
             });
             startConfetti();
+            navigator.vibrate(3000);
         }
     })
 }
