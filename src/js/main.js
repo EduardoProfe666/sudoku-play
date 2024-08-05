@@ -19,6 +19,11 @@ function destroyGlobalValues(){
     localStorage.setItem('sudokuGameMode', undefined);
 }
 
+// --- JUST FOR TESTING... DELETE IN THE FUTURE --- //
+function printSolution(){
+    console.table(solution)
+}
+
 
 //----------------------------------------------- Confetti -------------------------------------------------------//
 function startConfetti(){
