@@ -108,7 +108,7 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                         numbers[row][col] = value;
                     }
                     if (isSudokuSolved(numbers)) {
-                        stopTimer   ();
+                        stopTimer();
                         showWinningModal();
                     }
                 });
@@ -262,6 +262,7 @@ function showWinningModal() {
                 restartGame();
             });
             startConfetti();
+            navigator.vibrate(3000);
         }
     })
 }
