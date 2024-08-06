@@ -7,9 +7,12 @@
 ![Google Play](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
 
-This is a pretty simple sudoku game that offers two game modes: auto-fill, that offers a sudoku generator with different
-levels of difficulty; manual-fill that offers the possibility to insert sudokus. It's available via Web, instalable PWA
-and on Google Play Store.
+This is a pretty simple sudoku game that offers two fill game modes: 
+- **Auto Fill**: A sudoku generator with different
+levels of difficulty
+- **Manual Fill**: Offers the possibility to insert sudokus. 
+It's available via **Web**, **instalable platform-independent PWA**
+and on **Google Play Store**.
 
 ## 📄 Main Functionalities 
 - [x] Different Fill Options
