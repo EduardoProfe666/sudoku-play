@@ -4,7 +4,6 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Google Play](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
 
 This is a pretty simple sudoku game that offers two fill game modes: 
@@ -33,7 +32,7 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [ ] Add assistance
   - [ ] Add completed numbers guidance
   - [ ] Add possible numbers guidance interface
-- [ ] Internationalization
+- [ ] Internationalization (english, español, français, italiano, deutsch, português)
 - [ ] Language auto detection
 
 ## 🛠️ How it works?
@@ -129,18 +128,76 @@ The web application is statically deploy on [Render](https://sudoku-play.onrende
 
 ## 😎 Progressive Web App
 > [!WARNING] 
-> Firefox Desktop/Mobile is not PWA ready... They aren't cool 🫤
+> Firefox Desktop is not PWA ready... They aren't cool 🫤
 
 A progressive web app (**PWA**) is an app that's built using web platform technologies,
 but that provides a user experience like that of a platform-specific app.
 
 Progressive web apps combine the best features of traditional websites and platform-specific apps. The main 
 benefits of PWA are:
-- 
+- PWAs are developed using standard web platform technologies, so they can run on multiple operating systems and device classes from a single codebase.
+- PWAs can be accessed directly from the web.
+- The PWA can be installed from platform's app store or installed directly from the web.
+- The PWA can be installed like a platform-specific app, and can customize the install process.
+- Once installed, the PWA gets an app icon on the device, alongside platform-specific apps.
+- Once installed, the PWA can be launched as a standalone app, rather than a website in a browser.
+- Work while the device does not have network connectivity.
+- Update content in the background.
+- Respond to push messages from the server.
+- Display notifications using the OS notifications system.
+- PWAs can use the whole screen, rather than running in the browser UI.
+- PWAs can be integrated into the device, registering as share targets and sources, and accessing device features.
+- PWAs can be distributed in app stores, as well as openly via the web.
 
+Below is a table summarizing the compatibility of Progressive Web Apps (PWAs) with major desktop and mobile
+browsers, including the minimum browser versions required for full support.
+
+💻 **_Desktop Browsers_**
+
+| Feature / Browser          | Google Chrome | Mozilla Firefox | Microsoft Edge | Apple Safari    |
+|----------------------------|---------------|-----------------|----------------|-----------------|
+| **Manifest Support**       | 67+ ✅         | 63+ ✅           | 17+ ✅          | 11.1+ ✅         |
+| **Service Worker Support** | 45+ ✅         | 44+ ✅           | 17+ ✅          | 11.1+ ✅         |
+| **Add to Home Screen**     | 70+ ✅         | Not supported ❌ | 17+ ✅          | 11.1+ ✅         |
+| **Push Notifications**     | 50+ ✅         | 44+ ✅           | 17+ ✅          | 11.1+ ✅         |
+| **Web App Install Banner** | 73+ ✅         | Not supported ❌ | 17+ ✅          | Not supported ❌ |
+
+📱 **_Mobile Browsers_**
+
+| Feature / Browser          | Chrome for Android | Firefox for Android | Samsung Internet | Safari on iOS   |
+|----------------------------|--------------------|---------------------|------------------|-----------------|
+| **Manifest Support**       | 67+ ✅              | 63+ ✅               | 6.2+ ✅           | 11.3+ ✅         |
+| **Service Worker Support** | 45+ ✅              | 44+ ✅               | 4.0+ ✅           | 11.3+ ✅         |
+| **Add to Home Screen**     | 70+ ✅              | 68+ ✅               | 6.2+ ✅           | 11.3+ ✅         |
+| **Push Notifications**     | 50+ ✅              | 44+ ✅               | 4.0+ ✅           | 11.3+ ✅         |
+| **Web App Install Banner** | 73+ ✅              | Not supported ❌     | 6.2+ ✅           | Not supported ❌ |
+
+📝 **_Notes_**
+- **Manifest Support**: Indicates the level of support for the web app manifest file.
+- **Service Worker Support**: Indicates whether the browser supports service workers, which are a core technology for PWAs.
+- **Add to Home Screen**: Allows users to add the web app to their device's home screen.
+- **Push Notifications**: Enables the app to send notifications to the user.
+- **Web App Install Banner**: Prompts the user to install the web app on their device.
+
+The Sudoku Play application is implemented as a PWA, so it benefits from all the facilities given by them.
+
+### 📱 Android Installation 
+> [!NOTE]
+> The bellow installation example is on Android's **Chrome** App v115.0.5790.166. The process to install
+> a web app on a different browser could be a little different. It could be even different in a different version
+> of the same browser.
+
+### 💻 Windows Installation
+> [!NOTE]
+> The bellow installation example is on Desktop's **Brave** v1.68.134 (**Chromium** v127.0.6533.88). The process to install
+> a web app on a different browser could be a little different. It could be even different in a different version
+> of the same browser.
 
 ## ▶️ Google Play Store
 Google Play Store offers the possibility to...
+
+## ▶️ Microsoft Store
+Microsoft Store offers the possibility to...
 
 
 
