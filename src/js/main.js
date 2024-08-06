@@ -1,3 +1,13 @@
+// --------------------------------------- PWA!!! -------------------------------------------------------------- //
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function() {
+        navigator.serviceWorker
+            .register("serviceWorker.js")
+            .then(res => console.log("service worker registered"))
+            .catch(err => console.log("service worker not registered", err))
+    })
+}
+
 // ---------------------------- Global State Storage (kinda!!) ---------------------------------------------------- //
 let initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
 let otherNumbers = Array.from({length: 9}, () => Array(9).fill(0));
@@ -218,7 +228,7 @@ function prepareModalAutoFill() {
                                 s.style.color = 'grey';
                             }
                         });
-                        difficultyImage.src = images[difficulty]; 
+                        difficultyImage.src = images[difficulty];
                     });
                 });
             }
