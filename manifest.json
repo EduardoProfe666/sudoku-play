@@ -1,8 +1,8 @@
 {
-  "name": "Sudoku Online",
-  "short_name": "SudokuOn",
+  "name": "Sudoku Play",
+  "short_name": "Sudoku Play",
   "start_url": "index.html",
-  "description": "Simple Sudoku Game Online by EduardoProfe666🎩",
+  "description": "Simple Sudoku Game On/Offline by EduardoProfe666🎩",
   "display": "standalone",
   "background_color": "#fdfdfd",
   "theme_color": "#aaa",

@@ -1,4 +1,4 @@
-const sudokuOnlinePwa = "sudoku-online-pwa"
+const sudokuPlayPwa = "sudoku-play-pwa"
 const assets = [
     "/",
     "/index.html",
@@ -17,7 +17,7 @@ const assets = [
 
 self.addEventListener("install", installEvent => {
     installEvent.waitUntil(
-        caches.open(sudokuOnlinePwa).then(cache => {
+        caches.open(sudokuPlayPwa).then(cache => {
             cache.addAll(assets)
         })
     )
