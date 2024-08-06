@@ -2,6 +2,7 @@
   "name": "Sudoku Online",
   "short_name": "SudokuOn",
   "start_url": "index.html",
+  "description": "Simple Sudoku Game Online by EduardoProfe666🎩",
   "display": "standalone",
   "background_color": "#fdfdfd",
   "theme_color": "#aaa",
