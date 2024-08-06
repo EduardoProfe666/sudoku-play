@@ -18,6 +18,28 @@ It's made with vanilla **HTML**/**CSS**/**JS**!!!
 
 It's intended to be playable both **online** and **offline**  in must devices/OS.
 
+## 📇 Table of Content
+
+* [📖 Main Functionalities](#-main-functionalities-)
+* [🛠️ How it works?](#-how-it-works)
+  + [🤖 Auto Fill](#-auto-fill)
+    - [📜 Explanation](#-explanation)
+      * [🔮 Transformations](#-transformations)
+      * [🌱 Seeds by level of difficulty](#-seeds-by-level-of-difficulty)
+  + [👾 Manual Fill](#-manual-fill)
+    - [📜 Explanation](#-explanation-1)
+      * [⚖️ Validation of the Entered Sudoku](#-validation-of-the-entered-sudoku)
+      * [🦾 Solving the Entered Sudoku](#-solving-the-entered-sudoku)
+* [🏛️ Dependencies](#-dependencies)
+* [🚀 Deploy on Render](#-deploy-on-render)
+* [📸 Screenshots](#-screenshots)
+* [😎 Progressive Web App](#-progressive-web-app)
+  + [📱 Android PWA Installation](#-android-pwa-installation-)
+  + [💻 Windows PWA Installation](#-windows-pwa-installation)
+* [▶️ Google Play Store](#-google-play-store)
+* [▶️ Microsoft Store](#-microsoft-store)
+* [🧪 LightHouse Report](#-lighthouse-report)
+
 ## 📖 Main Functionalities 
 - [x] Different Fill Options
   - [x] Automatic Fill with different levels of difficulty
@@ -227,5 +249,10 @@ Microsoft Store offers the possibility to distribute Progressive Web Apps as usu
 
 You can easily install Sudoku Play as a normal Windows app in the next [Microsoft Store address]().
 
+## 🧪 LightHouse Report
 
+**_The LightHouse Report on Android:_**
+> ![LightHouse Android](assets/lighthouse-android.png)
 
+**_The LightHouse Report on Windows:_**
+> ![LightHouse Windows](assets/lighthouse-desktop.png)
