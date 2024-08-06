@@ -11,8 +11,13 @@ This is a pretty simple sudoku game that offers two fill game modes:
 - **Auto Fill**: A sudoku generator with different
 levels of difficulty
 - **Manual Fill**: Offers the possibility to insert sudokus. 
+
 It's available via **Web**, **instalable platform-independent PWA**
 and on **Google Play Store**.
+
+It's made with vanilla **HTML**/**CSS**/**JS**!!!
+
+It's intended to be playable completely **offline**  in must devices/SO.
 
 ## 📄 Main Functionalities 
 - [x] Different Fill Options
@@ -22,6 +27,7 @@ and on **Google Play Store**.
 - [x] Deploy on Render
 - [x] Make it a Progressive Web App
 - [ ] Make it available on Google Play Store
+- [ ] Make it available on Microsoft Store
 - [x] Add chronometer to game
 - [x] Add confetti and vibration to winning modal
 - [ ] Add assistance
