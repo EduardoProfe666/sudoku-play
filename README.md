@@ -50,7 +50,7 @@ The web application is statically deploy on [Render](https://sudoku-play.onrende
 ## 📸 Screenshots
 
 ## 😎 Progressive Web App
-> ![WARNING]
+> [!WARNING]
 > Firefox Desktop/Mobile is not PWA ready... They aren't cool 🫤
 
 
