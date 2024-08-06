@@ -146,7 +146,7 @@ function startGame(difficulty, grid) {
 
 
 // -------- Modal Auto-Fill -------- //
-function prepareModalAutoFill(){
+function prepareModalAutoFill() {
     document.getElementById("auto-fill-button").addEventListener("click", () => {
         let difficulty = 0;
 
@@ -154,11 +154,16 @@ function prepareModalAutoFill(){
             title: 'Choose the game\'s difficulty',
             icon: 'question',
             html: `
-            <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;" title="Easy"></i>
-            <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;" title="Medium"></i>
-            <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;" title="Hard"></i>
-            <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;" title="Expert"></i>
-        `,
+                <div style="display: flex; justify-content: center; margin: 10px;">
+                    <div style="display: flex; justify-content: center; align-items: center; width: 175px; height: 175px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background: linear-gradient(135deg, #f5f7fa, #c3cfe2);">
+                        <img id="difficulty-image" src="" alt="Difficulty Image" style="display: none; width: 150px; height: 150px; border-radius: 5px;">
+                    </div>
+                </div>
+                <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;" title="Easy"></i>
+                <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;" title="Medium"></i>
+                <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;" title="Hard"></i>
+                <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;" title="Expert"></i>
+            `,
             showCancelButton: false,
             confirmButtonText: '<i class="fas fa-play"></i> Start Game',
             preConfirm: () => {
@@ -169,6 +174,16 @@ function prepareModalAutoFill(){
             },
             didOpen: () => {
                 const stars = document.querySelectorAll('.fa-star');
+                const difficultyImage = document.getElementById('difficulty-image');
+
+                const images = [
+                    'public/0.png',
+                    'public/easy.png',
+                    'public/medium.png',
+                    'public/hard.png',
+                    'public/expert.png'
+                ];
+
                 stars.forEach((star, index) => {
                     star.addEventListener('click', () => {
                         difficulty = index + 1;
@@ -179,6 +194,8 @@ function prepareModalAutoFill(){
                                 s.style.color = 'grey';
                             }
                         });
+                        difficultyImage.src = images[difficulty];
+                        difficultyImage.style.display = 'block';
                     });
 
                     star.addEventListener('mouseenter', () => {
@@ -189,6 +206,8 @@ function prepareModalAutoFill(){
                                 s.style.color = 'grey';
                             }
                         });
+                        difficultyImage.src = images[index + 1];
+                        difficultyImage.style.display = 'block';
                     });
 
                     star.addEventListener('mouseleave', () => {
@@ -199,12 +218,13 @@ function prepareModalAutoFill(){
                                 s.style.color = 'grey';
                             }
                         });
+                        difficultyImage.src = images[difficulty]; 
                     });
                 });
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                startGame(result.value)
+                startGame(result.value);
                 localStorage.setItem('sudokuDifficulty', result.value);
                 localStorage.setItem('sudokuGameMode', 'auto');
             }
