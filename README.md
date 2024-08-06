@@ -181,13 +181,13 @@ browsers, including the minimum browser versions required for full support.
 
 The Sudoku Play application is implemented as a PWA, so it benefits from all the facilities given by them.
 
-### 📱 Android Installation 
+### 📱 Android PWA Installation 
 > [!NOTE]
 > The bellow installation example is on Android's **Chrome** App v115.0.5790.166. The process to install
 > a web app on a different browser could be a little different. It could be even different in a different version
 > of the same browser.
 
-### 💻 Windows Installation
+### 💻 Windows PWA Installation
 > [!NOTE]
 > The bellow installation example is on Desktop's **Brave** v1.68.134 (**Chromium** v127.0.6533.88). The process to install
 > a web app on a different browser could be a little different. It could be even different in a different version
