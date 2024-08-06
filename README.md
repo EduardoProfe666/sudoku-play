@@ -1,4 +1,4 @@
-# Simple Sudoku Game On/Offline
+# 🔢 Simple Sudoku Game On/Offline
 
 ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -17,7 +17,7 @@ and on **Google Play Store**.
 
 It's made with vanilla **HTML**/**CSS**/**JS**!!!
 
-It's intended to be playable completely **offline**  in must devices/SO.
+It's intended to be playable both **online** and **offline**  in must devices/OS.
 
 ## 📖 Main Functionalities 
 - [x] Different Fill Options
@@ -38,38 +38,84 @@ It's intended to be playable completely **offline**  in must devices/SO.
 
 ## 🛠️ How it works?
 ### 🤖 Auto Fill
-This fill mode uses a fast sudoku puzzle algorithm. It's a seed transformación algorithm  based on [sudoku-gen](https://github.com/petewritescode/sudoku-gen).
+This fill mode uses a fast sudoku puzzle algorithm.
+It's a seed transformation algorithm  based on [sudoku-gen](https://github.com/petewritescode/sudoku-gen).
 
 #### 📜 Explanation
-Most sudoku generators start with a completed sudoku grid and remove numbers one at a time, using a backtracking algorithm to stop once the puzzle becomes unsolvable. This process is too slow to be performed in real-time, so usually requires a background task and database for generating and storing puzzles as they're created. That's only to create a puzzle... Besides that, The generales puzzle must be graded, which is more complicated than the generación.
+Most sudoku generators start with a completed sudoku grid and remove numbers one at a time,
+using a backtracking algorithm to stop once the puzzle becomes unsolvable.
+This process is too slow to be performed in real-time, so usually requires
+a background task and database for generating and storing puzzles as they're created.
+That's only to create a puzzle... Besides that, the generated puzzle must be graded, which
+is more complicated than the generation.
 
-The used algorithm works differently. It starts with a known, solvable "seed" puzzle and performs various transformations to turn it into a brand new puzzle. This makes it extremely fast, with no requirement for a back end, whilst maintaining quality.
+The used algorithm works differently. It starts with a known, solvable "seed" puzzle and performs
+various transformations to turn it into a brand-new puzzle. This makes it extremely fast, with no
+requirement for a back end, whilst maintaining quality.
 
-Each seed gives over 2.4 trillion unique puzzles. To put that in context, if you played sudoku 24/7 and took 3 minutes to solve each puzzle, it would take until your 13,915,534th birthday to exhaust a single seed 🎂.
+Each seed gives over 2.4 trillion unique puzzles. To put that in context, if you played sudoku 24/7
+and took 3 minutes to solve each puzzle, it would take until your 13,915,534th birthday to exhaust a single seed 🎂.
 
 ##### 🔮 Transformations
 The following transformations are used ("!" = factorial):
 
 - **Rotate board:** **4** permutations (0°, 90°, 180°, 270°).
-- **Shuffle column groups ("stacks"):** **6** permutations (3!).
-- **Shuffle row groups ("bands"):** **6** permutations (3!).
-- **Shuffle columns: 216** permutations (3! x 3! x 3!).
-- **Shuffle rows: 216** permutations (3! x 3! x 3!).
-- **Swap numbers: 362,880** permutations (9!).
+- **Shuffle column groups ("stacks"):** **_6_** permutations (3!).
+- **Shuffle row groups ("bands"):** **_6_** permutations (3!).
+- **Shuffle columns:** **_216_** permutations (3! x 3! x 3!).
+- **Shuffle rows:** **_216_** permutations (3! x 3! x 3!).
+- **Swap numbers:** **_362,880_** permutations (9!).
 
-**Total permutations per seed** = 4 x 6 x 6 x 216 x 216 x 362,880 = **2,437,996,216,320.**
+**Total permutations per seed** = 4 x 6 x 6 x 216 x 216 x 362,880 = **_2,437,996,216,320_**.
 
 ##### 🌱 Seeds by level of difficulty
-The amount of seed by level of difficulty are describes :
-- **Easy**: X
-- **Medium**: Y
-- **Hard**: Z
-- **Expert**: A
+The amount of seed by level of difficulty are described down bellow:
+- **Easy**: **_10_**
+- **Medium**: **_10_**
+- **Hard**: **_10_**
+- **Expert**: **_10_**
 
+The amount of possible generated sudokus by level of difficulty are described down bellow:
+- **Easy**: **_20,437,996,216,320_**
+- **Medium**: **_20,437,996,216,320_**
+- **Hard**: **_20,437,996,216,320_**
+- **Expert**: **_20,437,996,216,320_**
 
+**Total possible generated sudokus** = 4 * 20,437,996,216,320 = **_81,751,984,865,280_** (**+81 trillion** puzzles 🥵)
 
 ### 👾 Manual Fill
+This fill mode has two main concepts: 
+- Validation of the entered Sudoku
+- Solve the entered Sudoku
 
+The validation is based on that entered sudokus must be [human solvable](https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/);
+that is that the input sudoku must have at least **17 clues** and obey to the [Sudoku Rules](https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/).
+
+The solve algorithm is a backtracking algorithm implementation based on this [geek-for-geeks article](https://www.geeksforgeeks.org/sudoku-backtracking-7/)
+
+#### 📜 Explanation
+##### ⚖️ Validation of the Entered Sudoku
+The validation process ensures that the entered Sudoku adheres to the rules and has a minimum number
+of clues required for it to be human-solvable. The process involves several steps:
+1. **Check for Validity**: The Sudoku board is checked to ensure it follows the standard Sudoku rules. This involves verifying that each row, column, and 3x3 subgrid contains unique numbers from 1 to 9. This is achieved by iterating through each row, column, and subgrid to ensure no duplicates exist.
+
+2. **Check Clue Count**: The number of clues (non-zero cells) in the Sudoku board is counted. This is important because a Sudoku puzzle must have at least 17 clues to be considered human-solvable. Counting the clues helps ensure the puzzle meets this requirement. The total number of clues is compared against the minimum required number (17). If the Sudoku board has fewer than 17 clues, it is considered invalid for human-solvable purposes.
+
+
+##### 🦾 Solving the Entered Sudoku
+The solving process uses a backtracking algorithm to find the solution for the entered Sudoku.
+The backtracking algorithm is a systematic approach to try different solutions until the correct one is found.
+The process involves the following steps:
+
+1. **Iterate Through Cells**: The algorithm iterates through each cell in the Sudoku board. If a cell is empty (represented by 0), it attempts to place numbers from 1 to 9 in that cell.
+
+2. **Validate Placement**: Before placing a number in a cell, the algorithm checks if the number is valid according to the Sudoku rules. This involves ensuring the number does not already exist in the same row, column, or 3x3 subgrid.
+
+3. **Recursive Solving**: If a valid number is found, it is placed in the cell, and the algorithm recursively attempts to solve the rest of the board. This recursive process continues until either the entire board is solved or a conflict is encountered.
+
+4. **Backtracking**: If a conflict is encountered (i.e., no valid number can be placed in a cell), the algorithm backtracks to the previous cell and tries the next possible number. This process continues until a solution is found or all possibilities are exhausted.
+
+5. **Return Solution**: If the algorithm successfully fills the entire board without conflicts, it returns the solved board. If no solution is found, it returns `null`.
 
 ## 🏛️ Dependencies
 - [Sweet Alert 2](https://sweetalert2.github.io/)
@@ -84,6 +130,13 @@ The web application is statically deploy on [Render](https://sudoku-play.onrende
 ## 😎 Progressive Web App
 > [!WARNING] 
 > Firefox Desktop/Mobile is not PWA ready... They aren't cool 🫤
+
+A progressive web app (**PWA**) is an app that's built using web platform technologies,
+but that provides a user experience like that of a platform-specific app.
+
+Progressive web apps combine the best features of traditional websites and platform-specific apps. The main 
+benefits of PWA are:
+- 
 
 
 ## ▶️ Google Play Store
