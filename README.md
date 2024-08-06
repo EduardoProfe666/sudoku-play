@@ -187,17 +187,45 @@ The Sudoku Play application is implemented as a PWA, so it benefits from all the
 > a web app on a different browser could be a little different. It could be even different in a different version
 > of the same browser.
 
+In order to install the Sudoku Play app like a native application on Android you need to follow these steps:
+
+1. Go to [Sudoku Play website](https://sudoku-play.onrender.com).
+2. Once it's fully loaded, it should appear a prompt asking for installing the PWA. It may take some time, depending
+of your network connection.
+> ![Android 1](assets/android-1.jpg)
+3. If you miss it, don't worry, you may still install it. To do so, you need to open the browser tab
+and select the option "Install application"
+> ![Android 2](assets/android-2.jpg)
+4. Once you began the installation for either of the two ways, a prompt should appear asking
+for installation.
+> ![Android 3](assets/android-3.jpg)
+5. Wait until the installation it's complete. That is, when the PWA appears in your device apps.
+> ![Android 4](assets/android-4.jpg)
+
 ### 💻 Windows PWA Installation
 > [!NOTE]
 > The bellow installation example is on Desktop's **Brave** v1.68.134 (**Chromium** v127.0.6533.88). The process to install
 > a web app on a different browser could be a little different. It could be even different in a different version
 > of the same browser.
 
+In order to install the Sudoku Play app like a native application on Android you need to follow these steps:
+
+1. Go to [Sudoku Play website](https://sudoku-play.onrender.com).
+2. Once it's fully loaded, it should appear the installation option in both URL bar and browser tab.
+> ![Windows 1](assets/windows-1.jpg)
+3. Once you began the installation for either of the two ways, a prompt should appear asking for installation.
+> ![Windows 2](assets/windows-2.png)
+4. Wait until the installation it's complete. That is, when the PWA appears in your desktop apps.
+
 ## ▶️ Google Play Store
-Google Play Store offers the possibility to...
+Google Play Store offers the possibility to distribute Progressive Web Apps as usual installable apps.
+
+You can easily install Sudoku Play as a normal Android app in the next [Google Play Store address]().
 
 ## ▶️ Microsoft Store
-Microsoft Store offers the possibility to...
+Microsoft Store offers the possibility to distribute Progressive Web Apps as usual installable apps.
+
+You can easily install Sudoku Play as a normal Windows app in the next [Microsoft Store address]().
 
 
 
