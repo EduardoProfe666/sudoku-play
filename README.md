@@ -57,6 +57,7 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [x] Add surrender option.
 - [ ] Internationalization (english, español, français, italiano, deutsch, português)
 - [ ] Language auto detection
+- [ ] Save Language Via Cookie
 - [ ] Optimization and HTML/CSS/JS Minify
 
 ## 🛠️ How it works?

@@ -4,6 +4,7 @@ const assets = [
     "/index.html",
     "/src/css/style.css",
     "/src/js/main.js",
+    "/src/js/translations.js",
     "/src/js/main-engine-gen.js",
     "/src/js/main-engine-solver.js",
     "/public/banner.png",

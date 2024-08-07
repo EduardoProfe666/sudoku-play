@@ -450,6 +450,7 @@ function showHelpModal() {
         `,
         preConfirm: () => {
             soundClick.play();
+            navigator.vibrate(300);
             return true;
         },
         showCancelButton: false,
@@ -461,6 +462,7 @@ function showHelpModal() {
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     soundClick.play();
+                    navigator.vibrate(300);
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.style.display = 'none');
 
@@ -496,9 +498,8 @@ function showGameOverModal() {
         image = images[difficulty - 1] || 'public/0.png';
     }
 
-
     Swal.fire({
-        title: '☠️ Game Over ☠️',
+        title: translations[currentLanguage].gameOverTitle,
         icon: 'error',
         html: `
             <div style="display: flex; justify-content: center; margin: 10px;">
@@ -506,11 +507,11 @@ function showGameOverModal() {
                     <img id="difficulty-image" src="${image}" alt="Difficulty Image" style="width: 150px; height: 150px; border-radius: 5px;">
                 </div>
             </div>
-            <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
-            <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
-            ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
+            <p>${translations[currentLanguage].gameOverText} <strong>${timeDisplay}</strong></p>
+            <p>${translations[currentLanguage].gameOverFillMode} <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
+            ${gameMode === 'auto' ? `<p>${translations[currentLanguage].gameOverDifficulty} <strong>${difficultyStars}</strong></p>` : ''}
         `,
-        confirmButtonText: '<i class="fas fa-redo"></i> Restart Game',
+        confirmButtonText: translations[currentLanguage].restartGame,
         allowOutsideClick: false,
         allowEscapeKey: false,
         didOpen: () => {
@@ -528,6 +529,7 @@ function showGameOverModal() {
 function prepareModalAutoFill() {
     document.getElementById("auto-fill-button").addEventListener("click", () => {
         soundClick.play();
+        navigator.vibrate(300);
         let difficulty = 0;
 
         Swal.fire({
@@ -550,6 +552,7 @@ function prepareModalAutoFill() {
             confirmButtonText: '<i class="fas fa-play"></i> Start Game',
             preConfirm: () => {
                 soundClick.play();
+                navigator.vibrate(300);
                 if (difficulty === 0) {
                     Swal.showValidationMessage('You must select a difficulty');
                 }
@@ -609,7 +612,7 @@ function prepareModalAutoFill() {
                             <p>Name: <strong>${difficultyNames[index]}</strong> 🌟</p>
                             <p>Level of Generated Puzzle: <strong>${difficultyNames[index]}</strong> 🧠🧩</p>
                             <p>Quantity of possible errors to commit: <strong>${errors[index]}</strong> ❌</p>
-                            <p>Guidance and Help ✅</p>
+                            <p>Assistance and Help ✅</p>
                             <p>The concept errors aren't count as errors to commit ✅</p>
                         `;
                     }
@@ -622,6 +625,7 @@ function prepareModalAutoFill() {
                 stars.forEach((star, index) => {
                     star.addEventListener('click', () => {
                         soundClick.play();
+                        navigator.vibrate(300);
                         difficulty = index + 1;
                         stars.forEach((s, i) => {
                             if (i <= index) {
@@ -677,6 +681,7 @@ function prepareModalAutoFill() {
 function prepareModalManualFill(){
     document.getElementById("manual-fill-button").addEventListener("click", () => {
         soundClick.play();
+        navigator.vibrate(300);
         Swal.fire({
             title: 'Fill the initial numbers',
             icon: "question",
@@ -689,6 +694,7 @@ function prepareModalManualFill(){
             footer: '<a target="_blank" href="https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/">Human Solvable Sudoku Article</a>',
             preConfirm: () => {
                 soundClick.play();
+                navigator.vibrate(300);
                 if(!isSudokuSolvable(initialNumbers)){
                     Swal.showValidationMessage('Given sudoku must has a unique solution and be human solvable (at least 17 clues)');
                     return false;
@@ -708,6 +714,45 @@ function prepareModalManualFill(){
                 soundStart.play();
             }
         });
+    });
+}
+
+// --------------------- Modal Language ----------------------------------- //
+function showLanguageModal() {
+    Swal.fire({
+        title: 'Select Language',
+        html: `
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <button id="lang-en" class="lang-button">English</button>
+                <button id="lang-es" class="lang-button">Español</button>
+                <button id="lang-fr" class="lang-button">Français</button>
+            </div>
+        `,
+        showConfirmButton: false,
+        showCancelButton: false,
+        didOpen: () => {
+            document.getElementById('lang-en').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'en';
+                translatePage();
+                Swal.close();
+            });
+            document.getElementById('lang-es').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'es';
+                translatePage();
+                Swal.close();
+            });
+            document.getElementById('lang-fr').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'fr';
+                translatePage();
+                Swal.close();
+            });
+        }
     });
 }
 
@@ -737,7 +782,7 @@ function showWinningModal() {
     }
 
     Swal.fire({
-        title: '🎉 You Win! 🎉',
+        title: translations[currentLanguage].winningTitle,
         icon: 'success',
         html: `
             <div style="display: flex; justify-content: center; margin: 10px;">
@@ -745,11 +790,11 @@ function showWinningModal() {
                     <img id="difficulty-image" src="${image}" alt="Difficulty Image" style="width: 150px; height: 150px; border-radius: 5px;">
                 </div>
             </div>
-            <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
-            <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
-            ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
+            <p>${translations[currentLanguage].winningText} <strong>${timeDisplay}</strong></p>
+            <p>${translations[currentLanguage].winningFillMode} <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
+            ${gameMode === 'auto' ? `<p>${translations[currentLanguage].winningDifficulty} <strong>${difficultyStars}</strong></p>` : ''}
         `,
-        confirmButtonText: '<i class="fas fa-redo"></i> Restart Game',
+        confirmButtonText: translations[currentLanguage].restartGame,
         allowOutsideClick: false,
         allowEscapeKey: false,
         didOpen: () => {
@@ -761,7 +806,7 @@ function showWinningModal() {
             navigator.vibrate(3000);
             soundWin.play();
         }
-    })
+    });
 }
 
 
@@ -786,6 +831,7 @@ function stopSudokuAnimation(){
 // -------------------------------------- Restart Game ---------------------------------------------------------- //
 function restartGame(){
     soundClick.play();
+    navigator.vibrate(300);
     destroyGlobalValues();
 
     document.getElementById("auto-fill-button").style.display = "block";
@@ -825,12 +871,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('help-button').addEventListener('click', () => {showHelpModal(); soundClick.play();});
     document.getElementById('surrender-button').addEventListener('click', () => {
         soundClick.play();
+        navigator.vibrate(300);
         showGameOverModal();
     });
 
     // --------------------------------------- Surrender Button Functionality ------------------------------------------- //
     document.getElementById('surrender-button').addEventListener('click', () => {
         soundClick.play();
+        navigator.vibrate(300);
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -843,8 +891,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 soundClick.play();
+                navigator.vibrate(300);
                 showGameOverModal();
             }
         });
+    });
+
+    const buttonGroup = document.getElementById('button-group');
+    const hintIndicator = document.getElementById('hint-indicator');
+
+    hintIndicator.addEventListener('click', () => {
+        buttonGroup.classList.toggle('visible');
+        hintIndicator.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!buttonGroup.contains(event.target) && event.target !== hintIndicator) {
+            buttonGroup.classList.remove('visible');
+            hintIndicator.classList.remove('hidden');
+        }
+    });
+
+
+    translatePage();
+    document.getElementById('language-button').addEventListener('click', () => {
+        soundClick.play();
+        navigator.vibrate(300);
+        showLanguageModal();
     });
 });
