@@ -763,9 +763,13 @@ function showLanguageModal() {
         icon: 'question',
         html: `
             <div style="display: flex; justify-content: center; gap: 20px;">
-                <button id="lang-en" class="lang-button">English</button>
-                <button id="lang-es" class="lang-button">Español</button>
-                <button id="lang-fr" class="lang-button">Français</button>
+                <button id="lang-en" class="lang-button">📚 English</button>
+                <button id="lang-es" class="lang-button">🏰 Español</button>
+                <button id="lang-fr" class="lang-button">🥐 Français</button>
+                <button id="lang-pt" class="lang-button">🍍 Português</button>
+                <button id="lang-de" class="lang-button">🍺 Deutsch</button>
+                <button id="lang-it" class="lang-button">🍝 Italiano</button>
+                <button id="lang-la" class="lang-button">🏛️ Latin</button>
             </div>
         `,
         showConfirmButton: false,
@@ -795,6 +799,42 @@ function showLanguageModal() {
                 currentLanguage = 'fr';
                 setCookie('language', 'fr', 365);
                 document.documentElement.lang = 'fr';
+                translatePage();
+                Swal.close();
+            });
+            document.getElementById('lang-pt').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'pt';
+                setCookie('language', 'pt', 365);
+                document.documentElement.lang = 'pt';
+                translatePage();
+                Swal.close();
+            });
+            document.getElementById('lang-de').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'de';
+                setCookie('language', 'de', 365);
+                document.documentElement.lang = 'de';
+                translatePage();
+                Swal.close();
+            });
+            document.getElementById('lang-it').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'it';
+                setCookie('language', 'it', 365);
+                document.documentElement.lang = 'it';
+                translatePage();
+                Swal.close();
+            });
+            document.getElementById('lang-la').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
+                currentLanguage = 'la';
+                setCookie('language', 'la', 365);
+                document.documentElement.lang = 'la';
                 translatePage();
                 Swal.close();
             });

@@ -55,7 +55,7 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [x] Add insane level, without any assistance.
 - [x] Add help explaining Game Rules and guidance Assistance System.
 - [x] Add surrender option.
-- [ ] Internationalization (english, español, français, italiano, deutsch, português)
+- [x] Internationalization (english, español, français, italiano, deutsch, português, latin)
 - [x] Language auto detection
 - [x] Save Language Via Cookie
 - [ ] Optimization and HTML/CSS/JS Minify
