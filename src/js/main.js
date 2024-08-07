@@ -18,6 +18,14 @@ let timerInterval;
 let intervalConfetti;
 let notes = Array.from({length: 9}, () => Array.from({length: 9}, () => Array(9).fill(false)));
 let currentNotesMenu = null;
+let errorsCommitted = 0;
+const maxErrors = {
+    1: 5,
+    2: 4,
+    3: 3,
+    4: 2,
+    5: 1
+};
 const soundClick = new Audio('public/audio/click.mp3');
 const soundWin = new Audio('public/audio/game-win.mp3');
 const soundOver = new Audio('public/audio/game-over.mp3');
@@ -43,7 +51,7 @@ function printSolution(){
 
 //----------------------------------------------- Confetti -------------------------------------------------------//
 function startConfetti(){
-    const duration = 10 * 1000; // 10 segs
+    const duration = 10 * 1000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 120, zIndex: 0 };
 
@@ -233,15 +241,24 @@ function disableNotes() {
 }
 
 // ----------------------------------------- Conflicts ------------------------------------------------------------ //
-function highlightConflicts(numbers) {
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => cell.classList.remove('conflict'));
+function highlightConflicts(numbers, difficulty) {
 
     const conflicts = findConflicts(numbers);
-    conflicts.forEach(([row, col]) => {
-        const cell = document.querySelector(`.cell:nth-child(${row * 9 + col + 1})`);
-        if (cell) cell.classList.add('conflict');
-    });
+
+    if (difficulty === 5) {
+        errorsCommitted += conflicts.length;
+        if (errorsCommitted >= maxErrors[difficulty]) {
+            showGameOverModal();
+        }
+    }
+    else {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => cell.classList.remove('conflict'));
+        conflicts.forEach(([row, col]) => {
+            const cell = document.querySelector(`.cell:nth-child(${row * 9 + col + 1})`);
+            if (cell) cell.classList.add('conflict');
+        });
+    }
 }
 
 function findConflicts(numbers) {
@@ -280,7 +297,6 @@ function findConflicts(numbers) {
         }
     }
 
-    console.table(numbers)
     return Array.from(conflicts).map(pos => pos.split(',').map(Number));
 }
 
@@ -319,14 +335,14 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                         numbers[row][col] = 0;
                         notes[row][col] = Array(9).fill(false);
                         renderNotes(cell, notes[row][col]);
-                        if(difficulty !== 5)
-                            highlightConflicts(numbers);
+                        highlightConflicts(numbers, difficulty);
+                        checkMistake(difficulty, row,  col);
                     } else {
                         numbers[row][col] = value;
                         notes[row][col] = Array(9).fill(false);
                         this.innerHTML = value;
-                        if(difficulty !== 5)
-                            highlightConflicts(numbers);
+                        highlightConflicts(numbers, difficulty);
+                        checkMistake(difficulty, row,  col);
                     }
                     if (isSudokuSolved(numbers)) {
                         stopTimer();
@@ -343,6 +359,30 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
             grid.appendChild(cell);
         }
     }
+
+}
+
+// ---------------------------- Game Over ------------------------------------------------------------------------- //
+function checkMistake(difficulty, row, col) {
+    const currentValue = parseInt(initialNumbers[row][col]);
+    if (currentValue !== 0 && currentValue !== solution[row][col]) {
+        if (difficulty === 5) {
+            errorsCommitted++;
+        } else {
+            
+            const numbersCopy = initialNumbers.map(row => row.slice());
+            numbersCopy[row][col] = currentValue;
+            const conflicts = findConflicts(numbersCopy);
+            const currentCellConflict = conflicts.some(([r, c]) => r === row && c === col);
+            if (!currentCellConflict) {
+                errorsCommitted++;
+            }
+        }
+
+        if (errorsCommitted >= maxErrors[difficulty]) {
+            showGameOverModal();
+        }
+    }
 }
 
 
@@ -350,6 +390,7 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
 // -------- Common Stuff ------- //
 function startGame(difficulty, grid) {
     stopSudokuAnimation();
+    errorsCommitted = 0;
     if (difficulty)
         generateSudoku(difficulty)
 
@@ -368,7 +409,7 @@ function startGame(difficulty, grid) {
     document.getElementById("message").style.display = "none";
     document.getElementById("timer").style.display = "block";
 
-    if (difficulty !== 5) { // 5 corresponds to "insane" difficulty
+    if (difficulty !== 5) {
         document.getElementById("number-dock").style.display = "flex";
         enableNotes();
     } else {
@@ -407,14 +448,19 @@ function showHelpModal() {
                 </ul>
             </div>
         `,
+        preConfirm: () => {
+            soundClick.play();
+            return true;
+        },
         showCancelButton: false,
-        confirmButtonText: 'Close',
+        confirmButtonText: '<i class="fas fa-close"></i> Close',
         didOpen: () => {
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
+                    soundClick.play();
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.style.display = 'none');
 
@@ -422,6 +468,58 @@ function showHelpModal() {
                     document.getElementById(button.id + 'Content').style.display = 'block';
                 });
             });
+        }
+    });
+}
+
+// --------- Modal Game-Over ----------- //
+function showGameOverModal() {
+    const timeDisplay = document.getElementById("timer-display").textContent;
+    const difficulty = localStorage.getItem('sudokuDifficulty') || 'Unknown';
+    const gameMode = localStorage.getItem('sudokuGameMode') || 'Unknown';
+
+    let difficultyStars = '';
+    if (gameMode === 'auto') {
+        const stars = ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐', "⭐⭐⭐⭐⭐"];
+        difficultyStars = stars[difficulty - 1] || 'Unknown';
+    }
+
+    let image = 'public/0.png';
+    if(gameMode === 'auto'){
+        const images = [
+            'public/easy.png',
+            'public/medium.png',
+            'public/hard.png',
+            'public/expert.png',
+            'public/insane.png',
+        ];
+        image = images[difficulty - 1] || 'public/0.png';
+    }
+
+
+    Swal.fire({
+        title: '☠️ Game Over ☠️',
+        icon: 'error',
+        html: `
+            <div style="display: flex; justify-content: center; margin: 10px;">
+                <div style="display: flex; justify-content: center; align-items: center; width: 175px; height: 175px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background: linear-gradient(135deg, #f5f7fa, #c3cfe2);">
+                    <img id="difficulty-image" src="${image}" alt="Difficulty Image" style="width: 150px; height: 150px; border-radius: 5px;">
+                </div>
+            </div>
+            <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
+            <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
+            ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
+        `,
+        confirmButtonText: '<i class="fas fa-redo"></i> Restart Game',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            const restartButton = Swal.getConfirmButton();
+            restartButton.addEventListener('click', () => {
+                restartGame();
+            });
+            navigator.vibrate(3000);
+            soundOver.play();
         }
     });
 }
@@ -626,10 +724,27 @@ function showWinningModal() {
         difficultyStars = stars[difficulty - 1] || 'Unknown';
     }
 
+    let image = 'public/0.png';
+    if(gameMode === 'auto'){
+        const images = [
+            'public/easy.png',
+            'public/medium.png',
+            'public/hard.png',
+            'public/expert.png',
+            'public/insane.png',
+        ];
+        image = images[difficulty - 1] || 'public/0.png';
+    }
+
     Swal.fire({
-        title: '¡Congratulations!\nYou complete sudoku',
+        title: '🎉 You Win! 🎉',
         icon: 'success',
         html: `
+            <div style="display: flex; justify-content: center; margin: 10px;">
+                <div style="display: flex; justify-content: center; align-items: center; width: 175px; height: 175px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background: linear-gradient(135deg, #f5f7fa, #c3cfe2);">
+                    <img id="difficulty-image" src="${image}" alt="Difficulty Image" style="width: 150px; height: 150px; border-radius: 5px;">
+                </div>
+            </div>
             <p>Elapsed Time: <strong>${timeDisplay}</strong></p>
             <p>Fill Mode: <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
             ${gameMode === 'auto' ? `<p>Difficulty: <strong>${difficultyStars}</strong></p>` : ''}
@@ -704,5 +819,5 @@ document.addEventListener("DOMContentLoaded", () => {
     generateInitialSudoku();
     startSudokuAnimation();
 
-    document.getElementById('help-button').addEventListener('click', showHelpModal);
+    document.getElementById('help-button').addEventListener('click', () => {showHelpModal(); soundClick.play();});
 });
