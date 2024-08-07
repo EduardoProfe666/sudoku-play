@@ -221,7 +221,7 @@
         transition: transform 0.3s;
     }
 
-    /* ----------------------- Number Dock ---------------------- */
+    /* ----------------------------------------- Numbers Dock --------------------------------------------------- */
 
     #number-dock {
         display: none;
@@ -297,6 +297,72 @@
         transition: background-color 0.3s;
     }
 
+    /* -------------------------------------------- Notes ---------------------------------------------------- */
+    .notes-menu {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        z-index: 1000;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 5px;
+        border-radius: 10px;
+        font-size: 14px;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .note-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        margin: 2px;
+        transition: background-color 0.3s, transform 0.3s;
+        border-radius: 5px;
+    }
+
+    .note-item:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.1);
+    }
+
+    .note-item.note-active {
+        background-color: #aaffaa;
+        color: #000;
+        animation: pulse 0.5s ease-in-out;
+    }
+
+    .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 2px;
+        font-size: 12px;
+    }
+
+    .note-cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e0ffe0;
+        border-radius: 3px;
+        font-size: 10px;
+        padding: 2px;
+        transition: background-color 0.3s, transform 0.3s;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .note-cell:hover {
+        background-color: #aaffaa;
+        transform: scale(1.1);
+    }
 
     /* ----------------------------------- Responsive Stuff (Media Queries) ----------------------------------- */
     @media (max-width: 600px) {

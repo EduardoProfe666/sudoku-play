@@ -16,6 +16,8 @@ let sudokuAnimationInterval;
 let startTime;
 let timerInterval;
 let intervalConfetti;
+let notes = Array.from({length: 9}, () => Array.from({length: 9}, () => Array(9).fill(false)));
+let currentNotesMenu = null;
 const soundClick = new Audio('public/audio/click.mp3');
 const soundWin = new Audio('public/audio/game-win.mp3');
 const soundOver = new Audio('public/audio/game-over.mp3');
@@ -129,6 +131,81 @@ function resetHighlight() {
     });
 }
 
+// ---------------------------------------------- Notes ---------------------------------------------------------- //
+function showNotesMenu(cell, event, row, col) {
+    if (currentNotesMenu) {
+        currentNotesMenu.remove();
+    }
+
+    const notesMenu = document.createElement("div");
+    notesMenu.classList.add("notes-menu");
+    notesMenu.style.position = "fixed";
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    let left = event.clientX;
+    let top = event.clientY;
+
+    const menuWidth = 200;
+    const menuHeight = 200;
+
+    if (left + menuWidth > screenWidth) {
+        left = screenWidth - menuWidth - 10;
+    }
+
+    if (top + menuHeight > screenHeight) {
+        top = screenHeight - menuHeight - 10;
+    }
+
+    notesMenu.style.left = `${left}px`;
+    notesMenu.style.top = `${top}px`;
+
+    for (let i = 1; i <= 9; i++) {
+        const noteItem = document.createElement("div");
+        noteItem.classList.add("note-item");
+        noteItem.textContent = i;
+        if (notes[row][col][i - 1]) {
+            noteItem.classList.add("note-active");
+        }
+        noteItem.addEventListener("click", () => {
+            notes[row][col][i - 1] = !notes[row][col][i - 1];
+            renderNotes(cell, notes[row][col]);
+            noteItem.classList.toggle("note-active");
+        });
+        notesMenu.appendChild(noteItem);
+    }
+
+    document.body.appendChild(notesMenu);
+    currentNotesMenu = notesMenu;
+
+    document.addEventListener("click", function closeNotesMenu(e) {
+        if (!notesMenu.contains(e.target)) {
+            notesMenu.remove();
+            currentNotesMenu = null;
+            document.removeEventListener("click", closeNotesMenu);
+        }
+    });
+}
+
+function renderNotes(cell, notes) {
+    cell.innerHTML = "";
+    const notesGrid = document.createElement("div");
+    notesGrid.classList.add("notes-grid");
+
+    notes.forEach((note, index) => {
+        if (note) {
+            const noteCell = document.createElement("div");
+            noteCell.classList.add("note-cell");
+            noteCell.textContent = index + 1;
+            notesGrid.appendChild(noteCell);
+        }
+    });
+
+    cell.appendChild(notesGrid);
+}
+
+
 // ------------------------------------ Sudoku Grid Creation ------------------------------------------------------ //
 function createSudokuGrid(editable = true, grid = document.getElementById("sudoku-grid"), initial = false, numbers = initialNumbers) {
     grid.classList.remove('magictime', 'vanishIn');
@@ -159,17 +236,34 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                     if (!/^\d$/.test(value)) {
                         this.textContent = "";
                         numbers[row][col] = 0;
+                        notes[row][col] = Array(9).fill(false);
+                        renderNotes(cell, notes[row][col]);
                     } else {
                         numbers[row][col] = value;
+                        notes[row][col] = Array(9).fill(false);
+                        this.innerHTML = value;
                     }
                     if (isSudokuSolved(numbers)) {
                         stopTimer();
                         showWinningModal();
-                    }
-                    else{
+                    } else {
                         updateNumberDock(numbers);
                     }
                 });
+
+                cell.addEventListener("contextmenu", function (event) {
+                    event.preventDefault();
+                    showNotesMenu(cell, event, row, col);
+                });
+
+                cell.addEventListener("dblclick", function (event) {
+                    event.preventDefault();
+                    showNotesMenu(cell, event, row, col);
+                });
+
+                if (numbers[row][col] === 0) {
+                    renderNotes(cell, notes[row][col]);
+                }
             }
             grid.appendChild(cell);
         }
@@ -409,6 +503,8 @@ function restartGame(){
 
     generateInitialSudoku();
     startSudokuAnimation();
+
+    notes = Array.from({length: 9}, () => Array.from({length: 9}, () => Array(9).fill(false)));
 }
 
 
