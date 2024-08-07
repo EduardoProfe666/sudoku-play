@@ -37,8 +37,6 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
   + [📱 Android PWA Installation](#-android-pwa-installation-)
   + [💻 Windows PWA Installation](#-windows-pwa-installation)
 * [▶️ Google Play Store](#-google-play-store)
-* [▶️ Microsoft Store](#-microsoft-store)
-* [🧪 LightHouse Report](#-lighthouse-report)
 
 ## 📖 Main Functionalities 
 - [x] Different Fill Options
@@ -48,7 +46,6 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [x] Deploy on Render
 - [x] Make it a Progressive Web App
 - [ ] Make it available on Google Play Store
-- [ ] Make it available on Microsoft Store
 - [x] Add chronometer to game
 - [x] Add confetti and vibration to winning modal
 - [ ] Add sound effects
@@ -248,15 +245,3 @@ Google Play Store offers the possibility to distribute Progressive Web Apps as u
 
 You can easily install Sudoku Play as a normal Android app in the next [Google Play Store address]().
 
-## ▶️ Microsoft Store
-Microsoft Store offers the possibility to distribute Progressive Web Apps as usual installable apps.
-
-You can easily install Sudoku Play as a normal Windows app in the next [Microsoft Store address]().
-
-## 🧪 LightHouse Report
-
-**_The LightHouse Report on Android:_**
-> ![LightHouse Android](assets/lighthouse-android.png)
-
-**_The LightHouse Report on Windows:_**
-> ![LightHouse Windows](assets/lighthouse-desktop.png)

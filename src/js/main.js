@@ -153,6 +153,7 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                 cell.textContent = numbers[row][col];
             } else {
                 cell.contentEditable = numbers[row][col] === 0 ? true : editable;
+                cell.inputMode = 'decimal';
                 cell.addEventListener("input", function () {
                     const value = this.textContent;
                     if (!/^\d$/.test(value)) {
@@ -419,6 +420,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const number = parseInt(item.getAttribute('data-number'));
         item.addEventListener('mouseenter', () => highlightNumber(number));
         item.addEventListener('mouseleave', () => resetHighlight());
+        item.addEventListener('touchstart', () => highlightNumber(number));
+        item.addEventListener('touchend', () => resetHighlight());
     });
 
     prepareModalManualFill();
