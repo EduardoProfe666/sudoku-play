@@ -55,6 +55,7 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
   - [ ] Highlight concept errors
 - [ ] Add game over system, where player loses if he made 5/4/3/2/1 mistakes in the different levels of difficulty. In any case, the player won't know the mistake's count. The error concepts aren´t count as mistakes, except in insane level
 - [ ] Add insane level, without any assistance.
+- [ ] Add initial modal explaining game rules.
 - [ ] Internationalization (english, español, français, italiano, deutsch, português)
 - [ ] Language auto detection
 
