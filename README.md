@@ -36,7 +36,6 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 * [😎 Progressive Web App](#-progressive-web-app)
   + [📱 Android PWA Installation](#-android-pwa-installation-)
   + [💻 Windows PWA Installation](#-windows-pwa-installation)
-* [▶️ Google Play Store](#-google-play-store)
 
 ## 📖 Main Functionalities 
 - [x] Different Fill Options
@@ -45,7 +44,6 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [x] Validate that Manual Fill entered sudokus must be [human solvable](https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/).
 - [x] Deploy on Render
 - [x] Make it a Progressive Web App
-- [ ] Make it available on Google Play Store
 - [x] Add chronometer to game
 - [x] Add confetti and vibration to winning modal
 - [x] Add sound effects
@@ -243,8 +241,4 @@ In order to install the Sudoku Play app like a native application on Android you
 > ![Windows 2](assets/windows-2.png)
 4. Wait until the installation it's complete. That is, when the PWA appears in your desktop apps.
 
-## ▶️ Google Play Store
-Google Play Store offers the possibility to distribute Progressive Web Apps as usual installable apps.
-
-You can easily install Sudoku Play as a normal Android app in the next [Google Play Store address]().
 
