@@ -95,8 +95,8 @@ body {
     box-shadow: 0 0 30px -10px #000;
     background-color: #fff;
     animation: fadeIn 1s;
-    border-radius: 10px; /* Borde redondeado */
-    overflow: hidden; /* Asegura que el contenido no se salga del borde redondeado */
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .cell {
@@ -234,16 +234,16 @@ body {
     align-items: center;
     margin-top: 20px;
     padding: 5px 20px;
-    border-radius: 20px; /* Borde redondeado */
+    border-radius: 20px;
     background-color: #f9f9f9;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra moderna */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid #ddd;
 }
 
 #number-dock:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el cursor */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 #number-dock .number-item {
@@ -313,7 +313,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 5px;
-    border-radius: 10px; /* Borde redondeado */
+    border-radius: 10px;
     font-size: 14px;
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -330,7 +330,7 @@ body {
     border: 1px solid #ccc;
     margin: 2px;
     transition: background-color 0.3s, transform 0.3s;
-    border-radius: 5px; /* Borde redondeado */
+    border-radius: 5px;
 }
 
 .note-item:hover {
@@ -369,6 +369,17 @@ body {
     transform: scale(1.1);
 }
 
+/* -------------------------------------------- Improved Image Styles ------------------------------------------ */
+#difficulty-image {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+
+
 /* ----------------------------------- Responsive Stuff (Media Queries) ----------------------------------- */
 @media (max-width: 600px) {
     body {
@@ -404,3 +415,4 @@ body {
         font-size: 20px;
     }
 }
+

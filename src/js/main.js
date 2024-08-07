@@ -423,6 +423,9 @@ function prepareModalAutoFill() {
                     'public/insane.png',
                 ];
 
+                difficultyImage.src = images[0];
+                difficultyImage.style.display = 'block';
+
                 stars.forEach((star, index) => {
 
                     star.addEventListener('click', () => {
@@ -463,7 +466,6 @@ function prepareModalAutoFill() {
                     });
                 });
 
-                difficultyImage.src = 'public/0.png';
             }
         }).then((result) => {
             if (result.isConfirmed) {
