@@ -152,23 +152,27 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                 cell.classList.add("initial");
                 cell.textContent = numbers[row][col];
             } else {
-                cell.contentEditable = numbers[row][col] === 0 ? true : editable;
-                cell.addEventListener("input", function () {
-                    const value = this.textContent;
-                    if (!/^\d$/.test(value)) {
-                        this.textContent = "";
+                const input = document.createElement("input");
+                input.type = "number";
+                input.min = 1;
+                input.max = 9;
+                input.value = numbers[row][col] === 0 ? "" : numbers[row][col];
+                input.addEventListener("input", function () {
+                    const value = this.value;
+                    if (!/^\d$/.test(value) || value < 1 || value > 9) {
+                        this.value = "";
                         numbers[row][col] = 0;
                     } else {
-                        numbers[row][col] = value;
+                        numbers[row][col] = parseInt(value);
                     }
                     if (isSudokuSolved(numbers)) {
                         stopTimer();
                         showWinningModal();
-                    }
-                    else{
+                    } else {
                         updateNumberDock(numbers);
                     }
                 });
+                cell.appendChild(input);
             }
             grid.appendChild(cell);
         }
@@ -419,6 +423,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const number = parseInt(item.getAttribute('data-number'));
         item.addEventListener('mouseenter', () => highlightNumber(number));
         item.addEventListener('mouseleave', () => resetHighlight());
+        item.addEventListener('touchstart', () => highlightNumber(number));
+        item.addEventListener('touchend', () => resetHighlight());
     });
 
     prepareModalManualFill();
