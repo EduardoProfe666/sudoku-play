@@ -16,7 +16,21 @@ const translations = {
         winningFillMode: "Fill Mode: ",
         winningDifficulty: "Difficulty: ",
         restartGame: "<i class='fas fa-redo'></i> Restart Game",
-        language: "Language"
+        language: "Language",
+        selectLanguage: "Select Language",
+        english: "English",
+        spanish: "Español",
+        french: "Français",
+        helpTitle: "Sudoku Help",
+        helpBasicRules: "Basic Rules of Sudoku",
+        helpAssistanceTypes: "Assistance Types",
+        helpRemainingNumbersDock: "<strong>Remaining Numbers Dock:</strong> Indicates required grid numbers, highlighting used digits. Exhausted numbers are marked, and overlimit digits turn red.",
+        helpNotes: "<strong>Notes:</strong> Allows you to take notes on possible numbers for each cell.",
+        helpConflicts: "<strong>Conflicts:</strong> Highlights cells that contain numbers causing conflicts in their row, column, or block.",
+        surrenderTitle: "Are you sure?",
+        surrenderText: "You won't be able to revert this!",
+        surrenderConfirm: "Yes, surrender!",
+        surrenderCancel: "No, cancel!"
     },
     es: {
         title: "Juego del Sudoku",
@@ -35,7 +49,21 @@ const translations = {
         winningFillMode: "Modo de Relleno: ",
         winningDifficulty: "Dificultad: ",
         restartGame: "<i class='fas fa-redo'></i> Reiniciar Juego",
-        language: "Idioma"
+        language: "Idioma",
+        selectLanguage: "Seleccionar Idioma",
+        english: "English",
+        spanish: "Español",
+        french: "Français",
+        helpTitle: "Ayuda de Sudoku",
+        helpBasicRules: "Reglas Básicas del Sudoku",
+        helpAssistanceTypes: "Tipos de Asistencia",
+        helpRemainingNumbersDock: "<strong>Dock de Números Restantes:</strong> Indica los números requeridos en la cuadrícula, resaltando los dígitos utilizados. Los números agotados están marcados y los dígitos en exceso se vuelven rojos.",
+        helpNotes: "<strong>Notas:</strong> Te permite tomar notas sobre los posibles números para cada celda.",
+        helpConflicts: "<strong>Conflictos:</strong> Resalta las celdas que contienen números causando conflictos en su fila, columna o bloque.",
+        surrenderTitle: "¿Estás seguro?",
+        surrenderText: "¡No podrás revertir esto!",
+        surrenderConfirm: "Sí, rendirse!",
+        surrenderCancel: "No, cancelar!"
     },
     fr: {
         title: "Jeu de Sudoku",
@@ -54,7 +82,21 @@ const translations = {
         winningFillMode: "Mode de Remplissage: ",
         winningDifficulty: "Difficulté: ",
         restartGame: "<i class='fas fa-redo'></i> Recommencer le Jeu",
-        language: "Langue"
+        language: "Langue",
+        selectLanguage: "Sélectionner la Langue",
+        english: "English",
+        spanish: "Español",
+        french: "Français",
+        helpTitle: "Aide de Sudoku",
+        helpBasicRules: "Règles de Base du Sudoku",
+        helpAssistanceTypes: "Types d'Assistance",
+        helpRemainingNumbersDock: "<strong>Dock des Nombres Restants:</strong> Indique les nombres requis dans la grille, en surlignant les chiffres utilisés. Les nombres épuisés sont marqués et les chiffres en excès deviennent rouges.",
+        helpNotes: "<strong>Notes:</strong> Vous permet de prendre des notes sur les nombres possibles pour chaque cellule.",
+        helpConflicts: "<strong>Conflits:</strong> Surbrille les cellules contenant des nombres causant des conflits dans leur ligne, colonne ou bloc.",
+        surrenderTitle: "Êtes-vous sûr?",
+        surrenderText: "Vous ne pourrez pas revenir en arrière!",
+        surrenderConfirm: "Oui, abandonner!",
+        surrenderCancel: "Non, annuler!"
     }
 };
 

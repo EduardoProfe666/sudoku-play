@@ -46,6 +46,27 @@ function printSolution(){
     console.table(solution)
 }
 
+// -------------------------------------------- Cookie ----------------------------------------------------------- //
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+
+
 
 //----------------------------------------------- Confetti -------------------------------------------------------//
 function startConfetti(){
@@ -420,18 +441,36 @@ function startGame(difficulty, grid) {
     startTimer();
 }
 
+function detectLanguage() {
+    const userLanguage = window.navigator.userLanguage || window.navigator.language;
+    return userLanguage.substring(0, 2);
+}
+
+function initializeLanguage() {
+    const savedLanguage = getCookie('language');
+    if (savedLanguage) {
+        currentLanguage = savedLanguage;
+    } else {
+        const detectedLanguage = detectLanguage();
+        if (translations[detectedLanguage]) {
+            currentLanguage = detectedLanguage;
+        }
+    }
+    document.documentElement.lang = currentLanguage;
+    translatePage();
+}
 // ----------------------- Help Modal --------------------- //
 function showHelpModal() {
     Swal.fire({
-        title: 'Sudoku Help',
+        title: translations[currentLanguage].helpTitle,
         icon: 'info',
         html: `
             <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                <button id="tab1" class="tab-button active">Basic Rules</button>
-                <button id="tab2" class="tab-button">Assistance Types</button>
+                <button id="tab1" class="tab-button active">${translations[currentLanguage].helpBasicRules}</button>
+                <button id="tab2" class="tab-button">${translations[currentLanguage].helpAssistanceTypes}</button>
             </div>
             <div id="tab1Content" class="tab-content" style="display: block;">
-                <p>🧩 <strong>Basic Rules of Sudoku</strong></p>
+                <p>🧩 <strong>${translations[currentLanguage].helpBasicRules}</strong></p>
                 <ul>
                     <li>Each row must contain the numbers from 1 to 9, without repetitions.</li>
                     <li>Each column must contain the numbers from 1 to 9, without repetitions.</li>
@@ -440,11 +479,11 @@ function showHelpModal() {
                 </ul>
             </div>
             <div id="tab2Content" class="tab-content" style="display: none;">
-                <p>🛠️ <strong>Assistance Types</strong></p>
+                <p>🛠️ <strong>${translations[currentLanguage].helpAssistanceTypes}</strong></p>
                 <ul>
-                    <li><strong>Remaining Numbers Dock:</strong> Indicates required grid numbers, highlighting used digits. Exhausted numbers are marked, and overlimit digits turn red.</li>
-                    <li><strong>Notes:</strong> Allows you to take notes on possible numbers for each cell.</li>
-                    <li><strong>Conflicts:</strong> Highlights cells that contain numbers causing conflicts in their row, column, or block.</li>
+                    <li><strong>${translations[currentLanguage].helpRemainingNumbersDock}</strong></li>
+                    <li><strong>${translations[currentLanguage].helpNotes}</strong></li>
+                    <li><strong>${translations[currentLanguage].helpConflicts}</strong></li>
                 </ul>
             </div>
         `,
@@ -720,7 +759,8 @@ function prepareModalManualFill(){
 // --------------------- Modal Language ----------------------------------- //
 function showLanguageModal() {
     Swal.fire({
-        title: 'Select Language',
+        title: translations[currentLanguage].selectLanguage,
+        icon: 'question',
         html: `
             <div style="display: flex; justify-content: center; gap: 20px;">
                 <button id="lang-en" class="lang-button">English</button>
@@ -732,23 +772,23 @@ function showLanguageModal() {
         showCancelButton: false,
         didOpen: () => {
             document.getElementById('lang-en').addEventListener('click', () => {
-                soundClick.play();
-                navigator.vibrate(300);
                 currentLanguage = 'en';
+                setCookie('language', 'en', 365);
+                document.documentElement.lang = 'en';
                 translatePage();
                 Swal.close();
             });
             document.getElementById('lang-es').addEventListener('click', () => {
-                soundClick.play();
-                navigator.vibrate(300);
                 currentLanguage = 'es';
+                setCookie('language', 'es', 365);
+                document.documentElement.lang = 'es';
                 translatePage();
                 Swal.close();
             });
             document.getElementById('lang-fr').addEventListener('click', () => {
-                soundClick.play();
-                navigator.vibrate(300);
                 currentLanguage = 'fr';
+                setCookie('language', 'fr', 365);
+                document.documentElement.lang = 'fr';
                 translatePage();
                 Swal.close();
             });
@@ -880,14 +920,14 @@ document.addEventListener("DOMContentLoaded", () => {
         soundClick.play();
         navigator.vibrate(300);
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: translations[currentLanguage].surrenderTitle,
+            text: translations[currentLanguage].surrenderText,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '<i class="fas fa-flag"></i>  Yes, surrender!',
-            cancelButtonText: '<i class="fas fa-times"></i> No, cancel!'
+            confirmButtonText: `<i class="fas fa-flag"></i> ${translations[currentLanguage].surrenderConfirm}`,
+            cancelButtonText: `<i class="fas fa-times"></i> ${translations[currentLanguage].surrenderCancel}`
         }).then((result) => {
             if (result.isConfirmed) {
                 soundClick.play();
@@ -913,7 +953,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    translatePage();
+    initializeLanguage();
     document.getElementById('language-button').addEventListener('click', () => {
         soundClick.play();
         navigator.vibrate(300);
