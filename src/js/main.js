@@ -34,9 +34,7 @@ const soundStart = new Audio('public/audio/game-start.mp3');
 function destroyGlobalValues(){
     initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
     otherNumbers = Array.from({length: 9}, () => Array(9).fill(0));
-    sudokuAnimationInterval = undefined;
     startTime = undefined;
-    timerInterval = undefined;
 
     localStorage.setItem('sudokuDifficulty', undefined);
     localStorage.setItem('sudokuGameMode', undefined);
