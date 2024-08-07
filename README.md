@@ -48,11 +48,11 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [ ] Make it available on Google Play Store
 - [x] Add chronometer to game
 - [x] Add confetti and vibration to winning modal
-- [ ] Add sound effects
-- [ ] Add assistance
+- [x] Add sound effects
+- [x] Add assistance
   - [x] Add completed numbers guidance (Remaining Number Dock)
-  - [ ] Add possible numbers guidance interface (Notes)
-  - [ ] Highlight concept errors
+  - [x] Add possible numbers guidance interface (Notes)
+  - [x] Highlight concept errors (Conflicts)
 - [ ] Add game over system, where player loses if he made 5/4/3/2/1 mistakes in the different levels of difficulty. In any case, the player won't know the mistake's count. The error concepts aren´t count as mistakes, except in insane level
 - [ ] Add insane level, without any assistance.
 - [ ] Add initial modal explaining game rules.

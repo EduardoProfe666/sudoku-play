@@ -205,9 +205,88 @@ function renderNotes(cell, notes) {
     cell.appendChild(notesGrid);
 }
 
+function enableNotes() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
+            showNotesMenu(cell, event, row, col);
+        });
+
+        cell.addEventListener("dblclick", function (event) {
+            event.preventDefault();
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
+            showNotesMenu(cell, event, row, col);
+        });
+    });
+}
+
+function disableNotes() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.removeEventListener("contextmenu", showNotesMenu);
+        cell.removeEventListener("dblclick", showNotesMenu);
+    });
+}
+
+// ----------------------------------------- Conflicts ------------------------------------------------------------ //
+function highlightConflicts(numbers) {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => cell.classList.remove('conflict'));
+
+    const conflicts = findConflicts(numbers);
+    conflicts.forEach(([row, col]) => {
+        const cell = document.querySelector(`.cell:nth-child(${row * 9 + col + 1})`);
+        if (cell) cell.classList.add('conflict');
+    });
+}
+
+function findConflicts(numbers) {
+    const conflicts = new Set();
+    const rows = Array.from({length: 9}, () => new Map());
+    const cols = Array.from({length: 9}, () => new Map());
+    const boxes = Array.from({length: 9}, () => new Map());
+
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            const num = parseInt(numbers[row][col]);
+            if (num !== 0) {
+                const boxIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+
+                if (rows[row].has(num) || cols[col].has(num) || boxes[boxIndex].has(num)) {
+                    conflicts.add(`${row},${col}`);
+                    if (rows[row].has(num)) {
+                        rows[row].get(num).forEach(pos => conflicts.add(pos));
+                    }
+                    if (cols[col].has(num)) {
+                        cols[col].get(num).forEach(pos => conflicts.add(pos));
+                    }
+                    if (boxes[boxIndex].has(num)) {
+                        boxes[boxIndex].get(num).forEach(pos => conflicts.add(pos));
+                    }
+                }
+
+                if (!rows[row].has(num)) rows[row].set(num, new Set());
+                if (!cols[col].has(num)) cols[col].set(num, new Set());
+                if (!boxes[boxIndex].has(num)) boxes[boxIndex].set(num, new Set());
+
+                rows[row].get(num).add(`${row},${col}`);
+                cols[col].get(num).add(`${row},${col}`);
+                boxes[boxIndex].get(num).add(`${row},${col}`);
+            }
+        }
+    }
+
+    console.table(numbers)
+    return Array.from(conflicts).map(pos => pos.split(',').map(Number));
+}
+
 
 // ------------------------------------ Sudoku Grid Creation ------------------------------------------------------ //
-function createSudokuGrid(editable = true, grid = document.getElementById("sudoku-grid"), initial = false, numbers = initialNumbers) {
+function createSudokuGrid(editable = true, grid = document.getElementById("sudoku-grid"), initial = false, numbers = initialNumbers, difficulty = 0 ) {
     grid.classList.remove('magictime', 'vanishIn');
 
     grid.innerHTML = "";
@@ -225,6 +304,8 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
         for (let col = 0; col < 9; col++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
+            cell.dataset.row = row;
+            cell.dataset.col = col;
             if (!editable && numbers[row][col] !== 0) {
                 cell.classList.add("initial");
                 cell.textContent = numbers[row][col];
@@ -238,10 +319,14 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                         numbers[row][col] = 0;
                         notes[row][col] = Array(9).fill(false);
                         renderNotes(cell, notes[row][col]);
+                        if(difficulty !== 5)
+                            highlightConflicts(numbers);
                     } else {
                         numbers[row][col] = value;
                         notes[row][col] = Array(9).fill(false);
                         this.innerHTML = value;
+                        if(difficulty !== 5)
+                            highlightConflicts(numbers);
                     }
                     if (isSudokuSolved(numbers)) {
                         stopTimer();
@@ -249,16 +334,6 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                     } else {
                         updateNumberDock(numbers);
                     }
-                });
-
-                cell.addEventListener("contextmenu", function (event) {
-                    event.preventDefault();
-                    showNotesMenu(cell, event, row, col);
-                });
-
-                cell.addEventListener("dblclick", function (event) {
-                    event.preventDefault();
-                    showNotesMenu(cell, event, row, col);
                 });
 
                 if (numbers[row][col] === 0) {
@@ -275,10 +350,10 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
 // -------- Common Stuff ------- //
 function startGame(difficulty, grid) {
     stopSudokuAnimation();
-    if(difficulty)
+    if (difficulty)
         generateSudoku(difficulty)
 
-    if(grid) {
+    if (grid) {
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
                 solution[row][col] = grid[row][col];
@@ -286,14 +361,20 @@ function startGame(difficulty, grid) {
         }
     }
 
-    createSudokuGrid(false);
+    createSudokuGrid(false, document.getElementById("sudoku-grid"), false, initialNumbers, difficulty ? parseInt(difficulty) : 0);
 
     document.getElementById("auto-fill-button").style.display = "none";
     document.getElementById("manual-fill-button").style.display = "none";
     document.getElementById("message").style.display = "none";
     document.getElementById("timer").style.display = "block";
-    document.getElementById("number-dock").style.display = "flex";
 
+    if (difficulty !== 5) { // 5 corresponds to "insane" difficulty
+        document.getElementById("number-dock").style.display = "flex";
+        enableNotes();
+    } else {
+        document.getElementById("number-dock").style.display = "none";
+        disableNotes();
+    }
 
     startTimer();
 }
