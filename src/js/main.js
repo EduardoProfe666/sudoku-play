@@ -379,6 +379,52 @@ function startGame(difficulty, grid) {
     startTimer();
 }
 
+// ----------------------- Help Modal --------------------- //
+function showHelpModal() {
+    Swal.fire({
+        title: 'Sudoku Help',
+        icon: 'info',
+        html: `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <button id="tab1" class="tab-button active">Basic Rules</button>
+                <button id="tab2" class="tab-button">Assistance Types</button>
+            </div>
+            <div id="tab1Content" class="tab-content" style="display: block;">
+                <p>🧩 <strong>Basic Rules of Sudoku</strong></p>
+                <ul>
+                    <li>Each row must contain the numbers from 1 to 9, without repetitions.</li>
+                    <li>Each column must contain the numbers from 1 to 9, without repetitions.</li>
+                    <li>Each block must contain the numbers from 1 to 9, without repetitions.</li>
+                    <li>The sum of all numbers in any complete row, column, or block is always 45.</li>
+                </ul>
+            </div>
+            <div id="tab2Content" class="tab-content" style="display: none;">
+                <p>🛠️ <strong>Assistance Types</strong></p>
+                <ul>
+                    <li><strong>Remaining Numbers Dock:</strong> Indicates required grid numbers, highlighting used digits. Exhausted numbers are marked, and overlimit digits turn red.</li>
+                    <li><strong>Notes:</strong> Allows you to take notes on possible numbers for each cell.</li>
+                    <li><strong>Conflicts:</strong> Highlights cells that contain numbers causing conflicts in their row, column, or block.</li>
+                </ul>
+            </div>
+        `,
+        showCancelButton: false,
+        confirmButtonText: 'Close',
+        didOpen: () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.style.display = 'none');
+
+                    button.classList.add('active');
+                    document.getElementById(button.id + 'Content').style.display = 'block';
+                });
+            });
+        }
+    });
+}
 
 // -------- Modal Auto-Fill -------- //
 function prepareModalAutoFill() {
@@ -395,6 +441,7 @@ function prepareModalAutoFill() {
                         <img id="difficulty-image" src="" alt="Difficulty Image" style="display: none; width: 150px; height: 150px; border-radius: 5px;">
                     </div>
                 </div>
+                <div id="difficulty-info" style="margin-top: 20px; text-align: center;"></div>
                 <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;" title="Easy"></i>
                 <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;" title="Medium"></i>
                 <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;" title="Hard"></i>
@@ -413,6 +460,7 @@ function prepareModalAutoFill() {
             didOpen: () => {
                 const stars = document.querySelectorAll('.fa-star');
                 const difficultyImage = document.getElementById('difficulty-image');
+                const difficultyInfo = document.getElementById('difficulty-info');
 
                 const images = [
                     'public/0.png',
@@ -423,11 +471,57 @@ function prepareModalAutoFill() {
                     'public/insane.png',
                 ];
 
+                const difficultyNames = [
+                    '',
+                    'Easy',
+                    'Medium',
+                    'Hard',
+                    'Expert',
+                    'Insane'
+                ];
+
+                const errors = [
+                    '',
+                    '5',
+                    '4',
+                    '3',
+                    '2',
+                    '1'
+                ];
+
+                const updateDifficultyInfo = (index) => {
+                    if (index === 5) {
+                        difficultyInfo.innerHTML = `
+                            <p>Name: <strong>${difficultyNames[index]}</strong> 🌟</p>  
+                            <p>Level of Generated Puzzle: <strong>${difficultyNames[index-1]}</strong> 🧠</p>
+                            <p>Quantity of possible errors to commit: <strong>${errors[index]}</strong> ❌</p>
+                            <p>No Assistance nor Help 🚫🆘</p>
+                            <p>The concept errors are count as errors to commit ❌</p>
+                        `;
+                    } else if(index === 0) {
+                        difficultyInfo.innerHTML = `
+                            <p>Name: <strong>-</strong> 🌟</p>
+                            <p>Level of Generated Puzzle: <strong>-</strong> 🧠🧩</p>
+                            <p>Quantity of possible errors to commit: <strong>-</strong> ❌</p>
+                            <p>Assistance and Help ✅</p>
+                            <p>The concept errors aren't count as errors to commit ✅</p>
+                        `;
+                    } else {
+                        difficultyInfo.innerHTML = `
+                            <p>Name: <strong>${difficultyNames[index]}</strong> 🌟</p>
+                            <p>Level of Generated Puzzle: <strong>${difficultyNames[index]}</strong> 🧠🧩</p>
+                            <p>Quantity of possible errors to commit: <strong>${errors[index]}</strong> ❌</p>
+                            <p>Guidance and Help ✅</p>
+                            <p>The concept errors aren't count as errors to commit ✅</p>
+                        `;
+                    }
+                };
+
                 difficultyImage.src = images[0];
                 difficultyImage.style.display = 'block';
+                updateDifficultyInfo(0);
 
                 stars.forEach((star, index) => {
-
                     star.addEventListener('click', () => {
                         soundClick.play();
                         difficulty = index + 1;
@@ -440,6 +534,7 @@ function prepareModalAutoFill() {
                         });
                         difficultyImage.src = images[difficulty];
                         difficultyImage.style.display = 'block';
+                        updateDifficultyInfo(difficulty);
                     });
 
                     star.addEventListener('mouseenter', () => {
@@ -452,6 +547,7 @@ function prepareModalAutoFill() {
                         });
                         difficultyImage.src = images[index + 1];
                         difficultyImage.style.display = 'block';
+                        updateDifficultyInfo(index + 1);
                     });
 
                     star.addEventListener('mouseleave', () => {
@@ -463,9 +559,9 @@ function prepareModalAutoFill() {
                             }
                         });
                         difficultyImage.src = images[difficulty];
+                        updateDifficultyInfo(difficulty);
                     });
                 });
-
             }
         }).then((result) => {
             if (result.isConfirmed) {
@@ -607,4 +703,6 @@ document.addEventListener("DOMContentLoaded", () => {
     prepareModalAutoFill();
     generateInitialSudoku();
     startSudokuAnimation();
+
+    document.getElementById('help-button').addEventListener('click', showHelpModal);
 });
