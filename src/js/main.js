@@ -369,7 +369,7 @@ function checkMistake(difficulty, row, col) {
         if (difficulty === 5) {
             errorsCommitted++;
         } else {
-            
+
             const numbersCopy = initialNumbers.map(row => row.slice());
             numbersCopy[row][col] = currentValue;
             const conflicts = findConflicts(numbersCopy);
@@ -390,6 +390,7 @@ function checkMistake(difficulty, row, col) {
 // -------- Common Stuff ------- //
 function startGame(difficulty, grid) {
     stopSudokuAnimation();
+    stopTimer();
     errorsCommitted = 0;
     if (difficulty)
         generateSudoku(difficulty)
@@ -402,12 +403,13 @@ function startGame(difficulty, grid) {
         }
     }
 
-    createSudokuGrid(false, document.getElementById("sudoku-grid"), false, initialNumbers, difficulty ? parseInt(difficulty) : 0);
+    createSudokuGrid(false, document.getElementById("sudoku-grid"), false, initialNumbers, difficulty ? parseInt(difficulty) : 1);
 
     document.getElementById("auto-fill-button").style.display = "none";
     document.getElementById("manual-fill-button").style.display = "none";
     document.getElementById("message").style.display = "none";
     document.getElementById("timer").style.display = "block";
+    document.getElementById("surrender-button").style.display = "block";
 
     if (difficulty !== 5) {
         document.getElementById("number-dock").style.display = "flex";
@@ -782,6 +784,7 @@ function stopSudokuAnimation(){
     clearInterval(sudokuAnimationInterval);
 }
 
+
 // -------------------------------------- Restart Game ---------------------------------------------------------- //
 function restartGame(){
     soundClick.play();
@@ -792,15 +795,17 @@ function restartGame(){
     document.getElementById("message").style.display = "block";
     document.getElementById("timer").style.display = "none";
     document.getElementById("number-dock").style.display = "none";
+    document.getElementById("surrender-button").style.display = "none";
 
     stopConfetti();
+    stopSudokuAnimation();
+    stopTimer();
 
     generateInitialSudoku();
     startSudokuAnimation();
 
     notes = Array.from({length: 9}, () => Array.from({length: 9}, () => Array(9).fill(false)));
 }
-
 
 // ------------------------------------------ Initialization ---------------------------------------------------- //
 document.addEventListener("DOMContentLoaded", () => {
@@ -820,4 +825,28 @@ document.addEventListener("DOMContentLoaded", () => {
     startSudokuAnimation();
 
     document.getElementById('help-button').addEventListener('click', () => {showHelpModal(); soundClick.play();});
+    document.getElementById('surrender-button').addEventListener('click', () => {
+        soundClick.play();
+        showGameOverModal();
+    });
+
+    // --------------------------------------- Surrender Button Functionality ------------------------------------------- //
+    document.getElementById('surrender-button').addEventListener('click', () => {
+        soundClick.play();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '<i class="fas fa-flag"></i>  Yes, surrender!',
+            cancelButtonText: '<i class="fas fa-times"></i> No, cancel!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                soundClick.play();
+                showGameOverModal();
+            }
+        });
+    });
 });

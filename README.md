@@ -51,10 +51,10 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
   - [x] Add completed numbers guidance (Remaining Number Dock)
   - [x] Add possible numbers guidance interface (Notes)
   - [x] Highlight concept errors (Conflicts)
-- [ ] Add game-over system, where player loses if he made 5/4/3/2/1 mistakes in the different levels of difficulty. In any case, the player won't know the mistake's count. The error concepts aren´t count as mistakes, except in insane level
+- [x] Add game-over system, where player loses if he made 5/4/3/2/1 mistakes in the different levels of difficulty. In any case, the player won't know the mistake's count. The error concepts aren´t count as mistakes, except in insane level
 - [x] Add insane level, without any assistance.
 - [x] Add help explaining Game Rules and guidance Assistance System.
-- [ ] Add surrender option.
+- [x] Add surrender option.
 - [ ] Internationalization (english, español, français, italiano, deutsch, português)
 - [ ] Language auto detection
 - [ ] Optimization and HTML/CSS/JS Minify
