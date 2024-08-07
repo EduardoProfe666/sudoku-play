@@ -85,6 +85,46 @@ function startTimer(){
     timerInterval = setInterval(updateTimer, 10);
 }
 
+// ---------------------------------- Number Dock ----------------------------------------------------------------- //
+function updateNumberDock(initialNumbers) {
+    const numberCounts = Array(10).fill(0);
+    initialNumbers.forEach(row => {
+        row.forEach(num => {
+            if (num !== 0) numberCounts[num]++;
+        });
+    });
+    console.log(numberCounts)
+
+    const numberItems = document.querySelectorAll('#number-dock .number-item');
+    numberItems.forEach(item => {
+        const number = parseInt(item.getAttribute('data-number'));
+        if (numberCounts[number] === 9) {
+            item.classList.add('crossed');
+            item.classList.remove('red');
+        } else if (numberCounts[number] > 9) {
+            item.classList.add('red');
+            item.classList.remove('crossed');
+        } else {
+            item.classList.remove('crossed', 'red');
+        }
+    });
+}
+
+function highlightNumber(number) {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        if (cell.textContent.toString() === number.toString()) {
+            cell.classList.add('highlight');
+        }
+    });
+}
+
+function resetHighlight() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.classList.remove('highlight');
+    });
+}
 
 // ------------------------------------ Sudoku Grid Creation ------------------------------------------------------ //
 function createSudokuGrid(editable = true, grid = document.getElementById("sudoku-grid"), initial = false, numbers = initialNumbers) {
@@ -114,12 +154,16 @@ function createSudokuGrid(editable = true, grid = document.getElementById("sudok
                     const value = this.textContent;
                     if (!/^\d$/.test(value)) {
                         this.textContent = "";
+                        numbers[row][col] = 0;
                     } else {
                         numbers[row][col] = value;
                     }
                     if (isSudokuSolved(numbers)) {
                         stopTimer();
                         showWinningModal();
+                    }
+                    else{
+                        updateNumberDock(numbers);
                     }
                 });
             }
@@ -150,6 +194,8 @@ function startGame(difficulty, grid) {
     document.getElementById("manual-fill-button").style.display = "none";
     document.getElementById("message").style.display = "none";
     document.getElementById("timer").style.display = "block";
+    document.getElementById("number-dock").style.display = "flex";
+
 
     startTimer();
 }
@@ -195,6 +241,7 @@ function prepareModalAutoFill() {
                 ];
 
                 stars.forEach((star, index) => {
+
                     star.addEventListener('click', () => {
                         difficulty = index + 1;
                         stars.forEach((s, i) => {
@@ -231,6 +278,8 @@ function prepareModalAutoFill() {
                         difficultyImage.src = images[difficulty];
                     });
                 });
+
+                difficultyImage.src = 'public/0.png';
             }
         }).then((result) => {
             if (result.isConfirmed) {
@@ -339,6 +388,7 @@ function restartGame(){
     document.getElementById("manual-fill-button").style.display = "block";
     document.getElementById("message").style.display = "block";
     document.getElementById("timer").style.display = "none";
+    document.getElementById("number-dock").style.display = "none";
 
     stopConfetti();
 
@@ -349,6 +399,14 @@ function restartGame(){
 
 // ------------------------------------------ Initialization ---------------------------------------------------- //
 document.addEventListener("DOMContentLoaded", () => {
+    const numberItems = document.querySelectorAll('#number-dock .number-item');
+
+    numberItems.forEach(item => {
+        const number = parseInt(item.getAttribute('data-number'));
+        item.addEventListener('mouseenter', () => highlightNumber(number));
+        item.addEventListener('mouseleave', () => resetHighlight());
+    });
+
     prepareModalManualFill();
     prepareModalAutoFill();
     generateInitialSudoku();
