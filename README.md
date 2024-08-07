@@ -52,7 +52,7 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [x] Add chronometer to game
 - [x] Add confetti and vibration to winning modal
 - [ ] Add assistance
-  - [ ] Add completed numbers guidance
+  - [x] Add completed numbers guidance (Remaining Number Dock)
   - [ ] Add possible numbers guidance interface
 - [ ] Internationalization (english, español, français, italiano, deutsch, português)
 - [ ] Language auto detection
