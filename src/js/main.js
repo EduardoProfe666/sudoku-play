@@ -16,6 +16,10 @@ let sudokuAnimationInterval;
 let startTime;
 let timerInterval;
 let intervalConfetti;
+const soundClick = new Audio('public/audio/click.mp3');
+const soundWin = new Audio('public/audio/game-win.mp3');
+const soundOver = new Audio('public/audio/game-over.mp3');
+const soundStart = new Audio('public/audio/game-start.mp3');
 
 function destroyGlobalValues(){
     initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
@@ -93,7 +97,6 @@ function updateNumberDock(initialNumbers) {
             if (num !== 0) numberCounts[num]++;
         });
     });
-    console.log(numberCounts)
 
     const numberItems = document.querySelectorAll('#number-dock .number-item');
     numberItems.forEach(item => {
@@ -204,6 +207,7 @@ function startGame(difficulty, grid) {
 // -------- Modal Auto-Fill -------- //
 function prepareModalAutoFill() {
     document.getElementById("auto-fill-button").addEventListener("click", () => {
+        soundClick.play();
         let difficulty = 0;
 
         Swal.fire({
@@ -223,6 +227,7 @@ function prepareModalAutoFill() {
             showCancelButton: false,
             confirmButtonText: '<i class="fas fa-play"></i> Start Game',
             preConfirm: () => {
+                soundClick.play();
                 if (difficulty === 0) {
                     Swal.showValidationMessage('You must select a difficulty');
                 }
@@ -243,6 +248,7 @@ function prepareModalAutoFill() {
                 stars.forEach((star, index) => {
 
                     star.addEventListener('click', () => {
+                        soundClick.play();
                         difficulty = index + 1;
                         stars.forEach((s, i) => {
                             if (i <= index) {
@@ -286,6 +292,7 @@ function prepareModalAutoFill() {
                 startGame(result.value);
                 localStorage.setItem('sudokuDifficulty', result.value);
                 localStorage.setItem('sudokuGameMode', 'auto');
+                soundStart.play();
             }
         });
     });
@@ -295,6 +302,7 @@ function prepareModalAutoFill() {
 // ------------ Modal Manual-Fill ----------- //
 function prepareModalManualFill(){
     document.getElementById("manual-fill-button").addEventListener("click", () => {
+        soundClick.play();
         Swal.fire({
             title: 'Fill the initial numbers',
             icon: "question",
@@ -306,6 +314,7 @@ function prepareModalManualFill(){
             showCancelButton: false,
             footer: '<a target="_blank" href="https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/">Human Solvable Sudoku Article</a>',
             preConfirm: () => {
+                soundClick.play();
                 if(!isSudokuSolvable(initialNumbers)){
                     Swal.showValidationMessage('Given sudoku must has a unique solution and be human solvable (at least 17 clues)');
                     return false;
@@ -322,6 +331,7 @@ function prepareModalManualFill(){
             if (result.isConfirmed) {
                 startGame(undefined, solveSudoku(initialNumbers.map(row => [...row])));
                 localStorage.setItem('sudokuGameMode', 'manual');
+                soundStart.play();
             }
         });
     });
@@ -358,6 +368,7 @@ function showWinningModal() {
             });
             startConfetti();
             navigator.vibrate(3000);
+            soundWin.play();
         }
     })
 }
@@ -382,6 +393,7 @@ function stopSudokuAnimation(){
 
 // -------------------------------------- Restart Game ---------------------------------------------------------- //
 function restartGame(){
+    soundClick.play();
     destroyGlobalValues();
 
     document.getElementById("auto-fill-button").style.display = "block";

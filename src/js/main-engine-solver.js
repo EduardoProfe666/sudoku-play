@@ -117,7 +117,5 @@ function isSudokuSolvable(grid){
 function isSudokuSolved(grid) {
     const flatGrid = grid.flat();
     const flatSolution = solution.flat();
-    console.table(flatGrid)
-    console.table(flatSolution)
     return flatGrid.every((value, index) => parseInt(value) === parseInt(flatSolution[index]));
 }

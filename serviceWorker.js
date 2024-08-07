@@ -21,6 +21,10 @@ const assets = [
     "/public/icons/icon-192x192.png",
     "/public/icons/icon-384x384.png",
     "/public/icons/icon-512x512.png",
+    "/public/audio/click.mp3",
+    "/public/audio/game-over.mp3",
+    "/public/audio/game-start.mp3",
+    "/public/audio/game-win.mp3",
 ]
 
 self.addEventListener("install", installEvent => {

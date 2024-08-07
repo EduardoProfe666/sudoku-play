@@ -51,9 +51,13 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [ ] Make it available on Microsoft Store
 - [x] Add chronometer to game
 - [x] Add confetti and vibration to winning modal
+- [ ] Add sound effects
 - [ ] Add assistance
   - [x] Add completed numbers guidance (Remaining Number Dock)
-  - [ ] Add possible numbers guidance interface
+  - [ ] Add possible numbers guidance interface (Notes)
+  - [ ] Highlight concept errors
+- [ ] Add game over system, where player loses if he made 5/4/3/2/1 mistakes in the different levels of difficulty. In any case, the player won't know the mistake's count. The error concepts aren´t count as mistakes, except in insane level
+- [ ] Add insane level, without any assistance.
 - [ ] Internationalization (english, español, français, italiano, deutsch, português)
 - [ ] Language auto detection
 
@@ -94,13 +98,13 @@ The amount of seed by level of difficulty are described down bellow:
 - **Easy**: **_10_**
 - **Medium**: **_10_**
 - **Hard**: **_10_**
-- **Expert**: **_10_**
+- **Expert**: **_10_** (**Insane** seeds are the same ones)
 
 The amount of possible generated sudokus by level of difficulty are described down bellow:
 - **Easy**: **_20,437,996,216,320_**
 - **Medium**: **_20,437,996,216,320_**
 - **Hard**: **_20,437,996,216,320_**
-- **Expert**: **_20,437,996,216,320_**
+- **Expert**: **_20,437,996,216,320_** (**Insane** amount is the same one)
 
 **Total possible generated sudokus** = 4 * 20,437,996,216,320 = **_81,751,984,865,280_** (**+81 trillion** puzzles 🥵)
 
