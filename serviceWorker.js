@@ -6,6 +6,7 @@ const assets = [
     "/src/js/main.js",
     "/src/js/main-engine-gen.js",
     "/src/js/main-engine-solver.js",
+    "/src/js/translations.js",
     "/public/banner.png",
     "/public/0.png",
     "/public/easy.png",

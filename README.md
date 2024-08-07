@@ -144,6 +144,7 @@ The process involves the following steps:
 - [Sweet Alert 2](https://sweetalert2.github.io/)
 - [Font Awesome](https://fontawesome.com/)
 - [Ts Particles Confetti](https://confetti.js.org/#)
+- [Vanilla i18n](https://github.com/thealphadollar/vanilla-i18n)
 
 ## 🚀 Deploy on Render
 The web application is statically deploy on [Render](https://sudoku-play.onrender.com)
