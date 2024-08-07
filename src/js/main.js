@@ -472,18 +472,18 @@ function showHelpModal() {
             <div id="tab1Content" class="tab-content" style="display: block;">
                 <p>🧩 <strong>${translations[currentLanguage].helpBasicRules}</strong></p>
                 <ul>
-                    <li>Each row must contain the numbers from 1 to 9, without repetitions.</li>
-                    <li>Each column must contain the numbers from 1 to 9, without repetitions.</li>
-                    <li>Each block must contain the numbers from 1 to 9, without repetitions.</li>
-                    <li>The sum of all numbers in any complete row, column, or block is always 45.</li>
+                    <li>${translations[currentLanguage].rule1}</li>
+                    <li>${translations[currentLanguage].rule2}</li>
+                    <li>${translations[currentLanguage].rule3}</li>
+                    <li>${translations[currentLanguage].rule4}</li>
                 </ul>
             </div>
             <div id="tab2Content" class="tab-content" style="display: none;">
                 <p>🛠️ <strong>${translations[currentLanguage].helpAssistanceTypes}</strong></p>
                 <ul>
-                    <li><strong>${translations[currentLanguage].helpRemainingNumbersDock}</strong></li>
-                    <li><strong>${translations[currentLanguage].helpNotes}</strong></li>
-                    <li><strong>${translations[currentLanguage].helpConflicts}</strong></li>
+                    <li>${translations[currentLanguage].helpRemainingNumbersDock}</li>
+                    <li>${translations[currentLanguage].helpNotes}</li>
+                    <li>${translations[currentLanguage].helpConflicts}</li>
                 </ul>
             </div>
         `,
@@ -493,7 +493,7 @@ function showHelpModal() {
             return true;
         },
         showCancelButton: false,
-        confirmButtonText: '<i class="fas fa-close"></i> Close',
+        confirmButtonText: `<i class="fas fa-close"></i> ${translations[currentLanguage].close}`,
         didOpen: () => {
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -547,7 +547,7 @@ function showGameOverModal() {
                 </div>
             </div>
             <p>${translations[currentLanguage].gameOverText} <strong>${timeDisplay}</strong></p>
-            <p>${translations[currentLanguage].gameOverFillMode} <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
+            <p>${translations[currentLanguage].gameOverFillMode} <strong>${gameMode === 'auto' ? translations[currentLanguage].auto : translations[currentLanguage].manual}</strong></p>
             ${gameMode === 'auto' ? `<p>${translations[currentLanguage].gameOverDifficulty} <strong>${difficultyStars}</strong></p>` : ''}
         `,
         confirmButtonText: translations[currentLanguage].restartGame,
@@ -572,7 +572,7 @@ function prepareModalAutoFill() {
         let difficulty = 0;
 
         Swal.fire({
-            title: 'Choose the game\'s difficulty',
+            title: translations[currentLanguage].autoFillTitle,
             icon: 'question',
             html: `
                 <div style="display: flex; justify-content: center; margin: 10px;">
@@ -581,19 +581,19 @@ function prepareModalAutoFill() {
                     </div>
                 </div>
                 <div id="difficulty-info" style="margin-top: 20px; text-align: center;"></div>
-                <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;" title="Easy"></i>
-                <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;" title="Medium"></i>
-                <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;" title="Hard"></i>
-                <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;" title="Expert"></i>
-                <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;" title="Insane"></i>
+                <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;"></i>
+                <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;"></i>
+                <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;"></i>
+                <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;"></i>
+                <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;"></i>
             `,
             showCancelButton: false,
-            confirmButtonText: '<i class="fas fa-play"></i> Start Game',
+            confirmButtonText: `<i class="fas fa-play"></i> ${translations[currentLanguage].startGame}`,
             preConfirm: () => {
                 soundClick.play();
                 navigator.vibrate(300);
                 if (difficulty === 0) {
-                    Swal.showValidationMessage('You must select a difficulty');
+                    Swal.showValidationMessage(translations[currentLanguage].autoValidation);
                 }
                 return difficulty;
             },
@@ -613,11 +613,11 @@ function prepareModalAutoFill() {
 
                 const difficultyNames = [
                     '',
-                    'Easy',
-                    'Medium',
-                    'Hard',
-                    'Expert',
-                    'Insane'
+                    translations[currentLanguage].easy,
+                    translations[currentLanguage].medium,
+                    translations[currentLanguage].hard,
+                    translations[currentLanguage].expert,
+                    translations[currentLanguage].insane,
                 ];
 
                 const errors = [
@@ -632,27 +632,27 @@ function prepareModalAutoFill() {
                 const updateDifficultyInfo = (index) => {
                     if (index === 5) {
                         difficultyInfo.innerHTML = `
-                            <p>Name: <strong>${difficultyNames[index]}</strong> 🌟</p>  
-                            <p>Level of Generated Puzzle: <strong>${difficultyNames[index-1]}</strong> 🧠</p>
-                            <p>Quantity of possible errors to commit: <strong>${errors[index]}</strong> ❌</p>
-                            <p>No Assistance nor Help 🚫🆘</p>
-                            <p>The concept errors are count as errors to commit ❌</p>
+                            <p>${translations[currentLanguage].autoName}: <strong>${difficultyNames[index]}</strong> 🌟</p>  
+                            <p>${translations[currentLanguage].autoLevel}: <strong>${difficultyNames[index-1]}</strong> 🧠</p>
+                            <p>${translations[currentLanguage].autoQuantityErrors}: <strong>${errors[index]}</strong> ❌</p>
+                            <p>${translations[currentLanguage].autoAssistance2} 🚫🆘</p>
+                            <p>${translations[currentLanguage].autoConceptError1} ❌</p>
                         `;
                     } else if(index === 0) {
                         difficultyInfo.innerHTML = `
-                            <p>Name: <strong>-</strong> 🌟</p>
-                            <p>Level of Generated Puzzle: <strong>-</strong> 🧠🧩</p>
-                            <p>Quantity of possible errors to commit: <strong>-</strong> ❌</p>
-                            <p>Assistance and Help ✅</p>
-                            <p>The concept errors aren't count as errors to commit ✅</p>
+                            <p>${translations[currentLanguage].autoName}: <strong>-</strong> 🌟</p>
+                            <p>${translations[currentLanguage].autoLevel}: <strong>-</strong> 🧠🧩</p>
+                            <p>${translations[currentLanguage].autoQuantityErrors}: <strong>-</strong> ❌</p>
+                            <p>${translations[currentLanguage].autoAssistance1} ✅❌</p>
+                            <p>${translations[currentLanguage].autoConceptError2} ✅❌</p>
                         `;
                     } else {
                         difficultyInfo.innerHTML = `
-                            <p>Name: <strong>${difficultyNames[index]}</strong> 🌟</p>
-                            <p>Level of Generated Puzzle: <strong>${difficultyNames[index]}</strong> 🧠🧩</p>
-                            <p>Quantity of possible errors to commit: <strong>${errors[index]}</strong> ❌</p>
-                            <p>Assistance and Help ✅</p>
-                            <p>The concept errors aren't count as errors to commit ✅</p>
+                            <p>${translations[currentLanguage].autoName}: <strong>${difficultyNames[index]}</strong> 🌟</p>
+                            <p>${translations[currentLanguage].autoLevel}: <strong>${difficultyNames[index]}</strong> 🧩</p>
+                            <p>${translations[currentLanguage].autoQuantityErrors}: <strong>${errors[index]}</strong> ❌</p>
+                            <p>${translations[currentLanguage].autoAssistance1} ✅</p>
+                            <p>${translations[currentLanguage].autoConceptError3} ✅</p>
                         `;
                     }
                 };
@@ -722,7 +722,7 @@ function prepareModalManualFill(){
         soundClick.play();
         navigator.vibrate(300);
         Swal.fire({
-            title: 'Fill the initial numbers',
+            title: translations[currentLanguage].manualFillTitle,
             icon: "question",
             html: `
             <div id="manual-window">
@@ -730,17 +730,17 @@ function prepareModalManualFill(){
             </div>
         `,
             showCancelButton: false,
-            footer: '<a target="_blank" href="https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/">Human Solvable Sudoku Article</a>',
+            footer: `<a target="_blank" href="https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/">${translations[currentLanguage].manualLinkTitle}</a>`,
             preConfirm: () => {
                 soundClick.play();
                 navigator.vibrate(300);
                 if(!isSudokuSolvable(initialNumbers)){
-                    Swal.showValidationMessage('Given sudoku must has a unique solution and be human solvable (at least 17 clues)');
+                    Swal.showValidationMessage(translations[currentLanguage].manualValidation);
                     return false;
                 }
                 return true;
             },
-            confirmButtonText: '<i class="fas fa-play"></i> Start Game',
+            confirmButtonText: `<i class="fas fa-play"></i> ${translations[currentLanguage].startGame}`,
             didOpen: () => {
                 initialNumbers = Array.from({length: 9}, () => Array(9).fill(0));
                 const manualGrid = document.getElementById("manual-sudoku-grid");
@@ -772,6 +772,8 @@ function showLanguageModal() {
         showCancelButton: false,
         didOpen: () => {
             document.getElementById('lang-en').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
                 currentLanguage = 'en';
                 setCookie('language', 'en', 365);
                 document.documentElement.lang = 'en';
@@ -779,6 +781,8 @@ function showLanguageModal() {
                 Swal.close();
             });
             document.getElementById('lang-es').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
                 currentLanguage = 'es';
                 setCookie('language', 'es', 365);
                 document.documentElement.lang = 'es';
@@ -786,6 +790,8 @@ function showLanguageModal() {
                 Swal.close();
             });
             document.getElementById('lang-fr').addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
                 currentLanguage = 'fr';
                 setCookie('language', 'fr', 365);
                 document.documentElement.lang = 'fr';
@@ -831,7 +837,7 @@ function showWinningModal() {
                 </div>
             </div>
             <p>${translations[currentLanguage].winningText} <strong>${timeDisplay}</strong></p>
-            <p>${translations[currentLanguage].winningFillMode} <strong>${gameMode === 'auto' ? 'Auto ' : 'Manual'}</strong></p>
+            <p>${translations[currentLanguage].winningFillMode} <strong>${gameMode === 'auto' ? translations[currentLanguage].auto : translations[currentLanguage].manual}</strong></p>
             ${gameMode === 'auto' ? `<p>${translations[currentLanguage].winningDifficulty} <strong>${difficultyStars}</strong></p>` : ''}
         `,
         confirmButtonText: translations[currentLanguage].restartGame,
@@ -840,6 +846,8 @@ function showWinningModal() {
         didOpen: () => {
             const restartButton = Swal.getConfirmButton();
             restartButton.addEventListener('click', () => {
+                soundClick.play();
+                navigator.vibrate(300);
                 restartGame();
             });
             startConfetti();
@@ -941,6 +949,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hintIndicator = document.getElementById('hint-indicator');
 
     hintIndicator.addEventListener('click', () => {
+        navigator.vibrate(300);
         buttonGroup.classList.toggle('visible');
         hintIndicator.classList.toggle('hidden');
     });
