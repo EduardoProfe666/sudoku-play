@@ -540,11 +540,11 @@ function prepareModalAutoFill() {
                     </div>
                 </div>
                 <div id="difficulty-info" style="margin-top: 20px; text-align: center;"></div>
-                <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;"></i>
-                <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;"></i>
-                <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;"></i>
-                <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;"></i>
-                <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;"></i>
+                <i class="fas fa-star" id="star1" style="cursor: pointer; color: grey;" title="Easy"></i>
+                <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;" title="Medium"></i>
+                <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;" title="Hard"></i>
+                <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;" title="Expert"></i>
+                <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;" title="Insane"></i>
             `,
             showCancelButton: false,
             confirmButtonText: '<i class="fas fa-play"></i> Start Game',
