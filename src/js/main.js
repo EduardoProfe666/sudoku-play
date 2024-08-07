@@ -223,6 +223,7 @@ function prepareModalAutoFill() {
                 <i class="fas fa-star" id="star2" style="cursor: pointer; color: grey;" title="Medium"></i>
                 <i class="fas fa-star" id="star3" style="cursor: pointer; color: grey;" title="Hard"></i>
                 <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;" title="Expert"></i>
+                <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;" title="Insane"></i>
             `,
             showCancelButton: false,
             confirmButtonText: '<i class="fas fa-play"></i> Start Game',
@@ -242,7 +243,8 @@ function prepareModalAutoFill() {
                     'public/easy.png',
                     'public/medium.png',
                     'public/hard.png',
-                    'public/expert.png'
+                    'public/expert.png',
+                    'public/insane.png',
                 ];
 
                 stars.forEach((star, index) => {
@@ -346,7 +348,7 @@ function showWinningModal() {
 
     let difficultyStars = '';
     if (gameMode === 'auto') {
-        const stars = ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐'];
+        const stars = ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐', "⭐⭐⭐⭐⭐"];
         difficultyStars = stars[difficulty - 1] || 'Unknown';
     }
 

@@ -312,6 +312,9 @@ function generateSudoku(difficulty, numbers = initialNumbers) {
         case 4:
             dif = 'expert';
             break;
+        case 5:
+            dif = 'expert';
+            break;
         default:
             dif = 'medium'; // Medium by default
             break;

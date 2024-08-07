@@ -13,6 +13,7 @@ const assets = [
     "/public/favicon.ico",
     "/public/hard.png",
     "/public/medium.png",
+    "/public/insane.png",
     "/public/icons/icon-72x72.png",
     "/public/icons/icon-96x96.png",
     "/public/icons/icon-128x128.png",
