@@ -58,7 +58,7 @@ It's intended to be playable both **online** and **offline**  in must devices/OS
 - [x] Internationalization (english, español, français, italiano, deutsch, português, latin)
 - [x] Language auto detection
 - [x] Save Language Via Cookie
-- [ ] Optimization and HTML/CSS/JS Minify
+- [x] Optimization and HTML/CSS/JS Minify
 
 ## 🛠️ How it works?
 ### 🤖 Auto Fill
