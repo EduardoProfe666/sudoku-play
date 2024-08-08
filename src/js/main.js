@@ -762,7 +762,7 @@ function showLanguageModal() {
         title: translations[currentLanguage].selectLanguage,
         icon: 'question',
         html: `
-            <div style="display: flex; justify-content: center; gap: 20px;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
                 <button id="lang-en" class="lang-button">📚 English</button>
                 <button id="lang-es" class="lang-button">🏰 Español</button>
                 <button id="lang-fr" class="lang-button">🥐 Français</button>
