@@ -145,7 +145,7 @@ function updateNumberDock(initialNumbers) {
 function highlightNumber(number) {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
-        if (cell.textContent.toString() === number.toString()) {
+        if (cell.textContent.toString().includes(number.toString())) {
             cell.classList.add('highlight');
         }
     });
@@ -489,7 +489,8 @@ function showHelpModal() {
         `,
         preConfirm: () => {
             soundClick.play();
-            navigator.vibrate(300);
+            if('vibrate' in navigator)
+                navigator.vibrate(200);
             return true;
         },
         showCancelButton: false,
@@ -501,7 +502,8 @@ function showHelpModal() {
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     soundClick.play();
-                    navigator.vibrate(300);
+                    if('vibrate' in navigator)
+                        navigator.vibrate(200);
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.style.display = 'none');
 
@@ -558,7 +560,8 @@ function showGameOverModal() {
             restartButton.addEventListener('click', () => {
                 restartGame();
             });
-            navigator.vibrate(3000);
+            if('vibrate' in navigator)
+                navigator.vibrate(3000);
             soundOver.play();
         }
     });
@@ -568,7 +571,8 @@ function showGameOverModal() {
 function prepareModalAutoFill() {
     document.getElementById("auto-fill-button").addEventListener("click", () => {
         soundClick.play();
-        navigator.vibrate(300);
+        if('vibrate' in navigator)
+            navigator.vibrate(200);
         let difficulty = 0;
 
         Swal.fire({
@@ -587,11 +591,13 @@ function prepareModalAutoFill() {
                 <i class="fas fa-star" id="star4" style="cursor: pointer; color: grey;"></i>
                 <i class="fas fa-star" id="star5" style="cursor: pointer; color: grey;"></i>
             `,
-            showCancelButton: false,
+            showCancelButton: true,
+            cancelButtonText: `<i class="fas fa-close"></i> ${translations[currentLanguage].close}`,
             confirmButtonText: `<i class="fas fa-play"></i> ${translations[currentLanguage].startGame}`,
             preConfirm: () => {
                 soundClick.play();
-                navigator.vibrate(300);
+                if('vibrate' in navigator)
+                    navigator.vibrate(200);
                 if (difficulty === 0) {
                     Swal.showValidationMessage(translations[currentLanguage].autoValidation);
                 }
@@ -664,7 +670,8 @@ function prepareModalAutoFill() {
                 stars.forEach((star, index) => {
                     star.addEventListener('click', () => {
                         soundClick.play();
-                        navigator.vibrate(300);
+                        if('vibrate' in navigator)
+                            navigator.vibrate(200);
                         difficulty = index + 1;
                         stars.forEach((s, i) => {
                             if (i <= index) {
@@ -720,7 +727,8 @@ function prepareModalAutoFill() {
 function prepareModalManualFill(){
     document.getElementById("manual-fill-button").addEventListener("click", () => {
         soundClick.play();
-        navigator.vibrate(300);
+        if('vibrate' in navigator)
+            navigator.vibrate(200);
         Swal.fire({
             title: translations[currentLanguage].manualFillTitle,
             icon: "question",
@@ -729,11 +737,12 @@ function prepareModalManualFill(){
                 <div id="manual-sudoku-grid" style="display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr); gap: 2px; border: 4px solid #000; width: 100%; max-width: 500px; aspect-ratio: 1;"></div>
             </div>
         `,
-            showCancelButton: false,
+            cancelButtonText: `<i class="fas fa-close"></i> ${translations[currentLanguage].close}`,
             footer: `<a target="_blank" href="https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/">${translations[currentLanguage].manualLinkTitle}</a>`,
             preConfirm: () => {
                 soundClick.play();
-                navigator.vibrate(300);
+                if('vibrate' in navigator)
+                    navigator.vibrate(200);
                 if(!isSudokuSolvable(initialNumbers)){
                     Swal.showValidationMessage(translations[currentLanguage].manualValidation);
                     return false;
@@ -794,7 +803,8 @@ function showLanguageModal() {
 
 function handleLanguageChange(lang) {
     soundClick.play();
-    navigator.vibrate(300);
+    if('vibrate' in navigator)
+        navigator.vibrate(200);
     currentLanguage = lang;
     setCookie('language', lang, 365);
     document.documentElement.lang = lang;
@@ -847,11 +857,13 @@ function showWinningModal() {
             const restartButton = Swal.getConfirmButton();
             restartButton.addEventListener('click', () => {
                 soundClick.play();
-                navigator.vibrate(300);
+                if('vibrate' in navigator)
+                    navigator.vibrate(200);
                 restartGame();
             });
             startConfetti();
-            navigator.vibrate(3000);
+            if('vibrate' in navigator)
+                navigator.vibrate(3000);
             soundWin.play();
         }
     });
@@ -879,7 +891,8 @@ function stopSudokuAnimation(){
 // -------------------------------------- Restart Game ---------------------------------------------------------- //
 function restartGame(){
     soundClick.play();
-    navigator.vibrate(300);
+    if('vibrate' in navigator)
+        navigator.vibrate(200);
     destroyGlobalValues();
 
     document.getElementById("auto-fill-button").style.display = "block";
@@ -919,14 +932,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('help-button').addEventListener('click', () => {showHelpModal(); soundClick.play();});
     document.getElementById('surrender-button').addEventListener('click', () => {
         soundClick.play();
-        navigator.vibrate(300);
+        if('vibrate' in navigator)
+            navigator.vibrate(200);
         showGameOverModal();
     });
 
     // --------------------------------------- Surrender Button Functionality ------------------------------------------- //
     document.getElementById('surrender-button').addEventListener('click', () => {
         soundClick.play();
-        navigator.vibrate(300);
+        if('vibrate' in navigator)
+            navigator.vibrate(200);
         Swal.fire({
             title: translations[currentLanguage].surrenderTitle,
             text: translations[currentLanguage].surrenderText,
@@ -939,7 +954,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 soundClick.play();
-                navigator.vibrate(300);
+                if('vibrate' in navigator)
+                    navigator.vibrate(200);
                 showGameOverModal();
             }
         });
@@ -949,7 +965,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const hintIndicator = document.getElementById('hint-indicator');
 
     hintIndicator.addEventListener('click', () => {
-        navigator.vibrate(300);
+        if('vibrate' in navigator)
+            navigator.vibrate(200);
         buttonGroup.classList.toggle('visible');
         hintIndicator.classList.toggle('hidden');
     });
@@ -965,7 +982,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeLanguage();
     document.getElementById('language-button').addEventListener('click', () => {
         soundClick.play();
-        navigator.vibrate(300);
+        if('vibrate' in navigator)
+            navigator.vibrate(200);
         showLanguageModal();
     });
 });
