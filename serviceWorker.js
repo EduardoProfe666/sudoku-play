@@ -2,8 +2,8 @@ const sudokuPlayPwa = "sudoku-play-pwa"
 const assets = [
     "/",
     "/index.html",
-    "/src/css/style.css",
-    "/src/js/main.js",
+    "/src/css/style.min.css",
+    "/src/js/scripts.min.js",
     "/src/js/translations.js",
     "/src/js/main-engine-gen.js",
     "/src/js/main-engine-solver.js",
