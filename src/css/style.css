@@ -403,11 +403,47 @@ body {
     transition: background-color 0.3s, transform 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .lang-button:hover {
     background-color: #0056b3;
     transform: translateY(-2px);
+}
+
+.lang-button::before {
+    font-size: 24px;
+}
+
+#lang-en::before {
+    content: '📚';
+}
+
+#lang-es::before {
+    content: '🏰';
+}
+
+#lang-fr::before {
+    content: '🥐';
+}
+
+#lang-pt::before {
+    content: '🍍';
+}
+
+#lang-de::before {
+    content: '🍺';
+}
+
+#lang-it::before {
+    content: '🍝';
+}
+
+#lang-la::before {
+    content: '🏛️';
 }
 
 /* -------------------------------------------- Improved Image Styles ------------------------------------------ */
@@ -652,6 +688,10 @@ body {
     .lang-button {
         padding: 10px 20px;
         font-size: 16px;
+    }
+
+    .lang-button::before {
+        font-size: 20px;
     }
 
     #hint-indicator {
