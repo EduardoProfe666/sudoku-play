@@ -1,0 +1,722 @@
+/* --------------------------------------- Animations ------------------------------------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes smallMove {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(5px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 150%;
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+/* ---------------------------------------- Main Components Styles ------------------------------------ */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 15px;
+}
+
+#manual-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sudoku-grid, #manual-sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 4px;
+    border: 4px solid #000;
+    width: 90%;
+    max-width: 500px;
+    aspect-ratio: 1;
+    box-shadow: 0 0 30px -10px #000;
+    background-color: #fff;
+    animation: fadeIn 1s;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    font-size: 20px;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.cell.conflict {
+    background-color: #ffabab;
+}
+
+.cell.initial {
+    font-weight: bold;
+    background-color: #e0e0e0;
+}
+
+.cell:nth-child(3n) {
+    border-right: 4px solid #000;
+}
+
+.cell:nth-child(n + 19):nth-child(-n + 27),
+.cell:nth-child(n + 46):nth-child(-n + 54) {
+    border-bottom: 4px solid #000;
+}
+
+.cell:hover {
+    background-color: #f0f0f0;
+}
+
+/* ------------------------------------------------ Buttons Styles --------------------------------------- */
+#button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#auto-fill-button, #manual-fill-button {
+    margin: 0 10px;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#auto-fill-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+#auto-fill-button:hover {
+    background-color: #409144;
+    transform: translateY(-2px);
+}
+
+#manual-fill-button {
+    background-color: #ff9800;
+    color: white;
+}
+
+#manual-fill-button:hover {
+    background-color: #bd7400;
+    transform: translateY(-2px);
+}
+
+#auto-fill-button i, #manual-fill-button i {
+    margin-right: 10px;
+}
+
+/* ------------------------------------------- Other Components Styles ------------------------------------ */
+#title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: -10px;
+    animation: fadeIn 1s;
+}
+
+#title {
+    font-size: 36px;
+    margin-right: 10px;
+    color: #333;
+    text-shadow: 2px 2px 4px #aaa;
+}
+
+#message {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #6e6e6e;
+    text-shadow: 1px 1px 2px #aaa;
+}
+
+#timer {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: none;
+    color: #333;
+    text-shadow: 1px 1px 2px #aaa;
+}
+
+#time-emoji {
+    font-size: 30px;
+}
+
+#timer-display {
+    color: #505050;
+    font-weight: bold;
+}
+
+#hat {
+    text-decoration: none;
+    color: #333;
+    font-size: 36px;
+    position: relative;
+    left: -5px;
+    top: -3px;
+    animation: pulse 1s infinite;
+    transition: transform 0.3s;
+}
+
+/* ----------------------------------------- Numbers Dock --------------------------------------------------- */
+#number-dock {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #ddd;
+}
+
+#number-dock:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+#number-dock .number-item {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s, text-decoration 0.3s;
+    position: relative;
+}
+
+#number-dock .number-item::after {
+    content: '|';
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-weight: bold;
+    font-size: 100%;
+    opacity: 0.7;
+    animation: none;
+}
+
+#number-dock .number-item:last-child::after {
+    content: '';
+}
+
+#number-dock .number-item.crossed {
+    position: relative;
+}
+
+#number-dock .number-item.crossed::before {
+    content: '';
+    position: absolute;
+    top: 45%;
+    left: -20%;
+    width: 150%;
+    height: 2px;
+    background: red;
+    transform: rotate(-30deg);
+    animation: slideIn 0.5s;
+}
+
+#number-dock .number-item.red {
+    color: red;
+    animation: bounce 0.5s;
+}
+
+#number-dock .number-item:not(.crossed):not(.red):hover {
+    color: #4caf50;
+}
+
+.cell.highlight {
+    background-color: #aaffaa;
+    transition: background-color 0.3s;
+}
+
+/* -------------------------------------------- Notes ---------------------------------------------------- */
+.notes-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+    border-radius: 10px;
+    font-size: 14px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.note-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    margin: 2px;
+    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 5px;
+}
+
+.note-item:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.note-item.note-active {
+    background-color: #aaffaa;
+    color: #000;
+    animation: pulse 0.5s ease-in-out;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    font-size: 12px;
+}
+
+.note-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0ffe0;
+    border-radius: 3px;
+    font-size: 10px;
+    padding: 2px;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.note-cell:hover {
+    background-color: #aaffaa;
+    transform: scale(1.1);
+}
+
+/* --------------------------------------- Language Modal Styles ------------------------------------------- */
+.lang-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.lang-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.lang-button::before {
+    font-size: 24px;
+}
+
+#lang-en::before {
+    content: '📚';
+}
+
+#lang-es::before {
+    content: '🏰';
+}
+
+#lang-fr::before {
+    content: '🥐';
+}
+
+#lang-pt::before {
+    content: '🍍';
+}
+
+#lang-de::before {
+    content: '🍺';
+}
+
+#lang-it::before {
+    content: '🍝';
+}
+
+#lang-la::before {
+    content: '🏛️';
+}
+
+/* -------------------------------------------- Improved Image Styles ------------------------------------------ */
+#difficulty-image {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+
+/* --------------------------------------- Button Group Styles ------------------------------------------- */
+#button-group {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: slideInDown 0.5s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+#button-group.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#hint-indicator {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background-color: transparent;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    font-size: 22px;
+    transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+}
+
+#hint-indicator.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#hint-indicator:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-50%) scale(1.05);
+}
+
+#hint-indicator i {
+    margin-right: 5px;
+}
+
+#surrender-button, #help-button, #language-button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s;
+    color: #333;
+}
+
+#surrender-button:hover, #help-button:hover, #language-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+#surrender-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+#surrender-button:hover {
+    background-color: #cc0000;
+}
+
+#help-button {
+    background-color: #007bff;
+    color: white;
+}
+
+#help-button:hover {
+    background-color: #0056b3;
+}
+
+#language-button {
+    background-color: #dcad15;
+    color: white;
+}
+
+#language-button:hover {
+    background-color: #c0940c;
+}
+
+/* --------------------------------------- Tab Button Styles ------------------------------------------- */
+.tab-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, color 0.3s;
+    margin-right: 5px;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+/* --------------------------------------- Tab Content Styles ------------------------------------------- */
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 5px;
+    background-color: #f9f9f9;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content h3 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px #aaa;
+}
+
+.tab-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tab-content ul li {
+    background: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.tab-content ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content ul li::before {
+    content: '🔹';
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+.tab-content ul li p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* ----------------------------------- Responsive Stuff (Media Queries) ----------------------------------- */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    #sudoku-grid, #manual-sudoku-grid {
+        width: 95%;
+    }
+
+    #title {
+        font-size: 28px;
+    }
+
+    #hat {
+        font-size: 28px;
+    }
+
+    #auto-fill-button, #manual-fill-button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    #timer {
+        font-size: 20px;
+    }
+
+    #time-emoji {
+        font-size: 25px;
+    }
+
+    #message {
+        font-size: 20px;
+    }
+
+    #button-group {
+        top: 10px;
+        padding: 5px;
+    }
+
+    #surrender-button, #help-button, #language-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .lang-button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .lang-button::before {
+        font-size: 20px;
+    }
+
+    #hint-indicator {
+        font-size: 20px;
+    }
+
+    .tab-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .tab-content h3 {
+        font-size: 20px;
+    }
+
+    .tab-content ul li {
+        padding: 10px;
+    }
+
+    .tab-content ul li::before {
+        left: -20px;
+        font-size: 16px;
+    }
+
+    .tab-content ul li p {
+        font-size: 14px;
+    }
+}

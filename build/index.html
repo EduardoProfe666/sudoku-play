@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+    <title>Sudoku Play 🎩</title>
+
+    <!--  Meta Stuff  -->
+    <meta property="og:title" content="Sudoku Play" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="it_IT" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="pt_PT" />
+    <meta property="og:locale:alternate" content="la_VA" />
+    <meta name="description" content="Simple Sudoku Game On/Offline by EduardoProfe666🎩." />
+    <meta property="og:description" content="Simple Sudoku Game On/Offline by EduardoProfe666🎩." />
+    <link rel="canonical" href="https://sudoku-play.onrender.com/" />
+    <meta property="og:url" content="https://sudoku-play.onrender.com/" />
+    <meta property="og:site_name" content="Sudoku Play" />
+    <meta name="author" content="EduardoProfe666🎩" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="https://sudoku-play.onrender.com/" />
+    <meta property="og:image" content="https://sudoku-play.onrender.com/public/banner.png">
+
+    <!--  PWA Stuff  -->
+    <link rel="manifest" href="manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="public/icons/icon-72x72.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-96x96.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-128x128.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-144x144.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-384x384.png" />
+    <link rel="apple-touch-icon" href="public/icons/icon-512x512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+    <meta name="theme-color" content="#6e6e6e" />
+
+    <!--  Imports  -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js" async></script>
+    <script src="src/js/translations.js"></script>
+    <script src="src/js/main-engine-gen.js"></script>
+    <script src="src/js/main-engine-solver.js"></script>
+    <script src="src/js/main.js"></script>
+</head>
+<body>
+    <div id="title-container">
+        <h1 id="title">Sudoku Play</h1>
+        <a id="hat" href="https://github.com/EduardoProfe666" target="_blank">🎩</a>
+    </div>
+    <div id="message">Choose the game's fill mode</div>
+    <div id="button-container">
+        <button id="auto-fill-button"><i class="fas fa-magic"></i> Auto Fill</button>
+        <button id="manual-fill-button"><i class="fas fa-pencil-alt"></i> Manual Fill</button>
+    </div>
+    <div id="timer"><span id="time-emoji">⏱️</span> Elapsed Time: <span id="timer-display">00:00:000</span></div>
+    <div id="sudoku-grid">
+        <!-- Cells will be generated automatically via Javascript ;) -->
+    </div>
+
+    <div id="number-dock">
+        <div class="number-item" data-number="1">1</div>
+        <div class="number-item" data-number="2">2</div>
+        <div class="number-item" data-number="3">3</div>
+        <div class="number-item" data-number="4">4</div>
+        <div class="number-item" data-number="5">5</div>
+        <div class="number-item" data-number="6">6</div>
+        <div class="number-item" data-number="7">7</div>
+        <div class="number-item" data-number="8">8</div>
+        <div class="number-item" data-number="9">9</div>
+    </div>
+
+    <div id="button-group">
+        <button id="surrender-button" style="display: none;"><i class="fas fa-flag"></i></button>
+        <button id="help-button"><i class="fas fa-question-circle"></i></button>
+        <button id="language-button"><i class="fas fa-language"></i></button>
+    </div>
+
+    <div id="hint-indicator"><i class="fas fa-chevron-down"></i></div>
+</body>
+</html>
