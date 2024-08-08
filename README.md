@@ -151,6 +151,21 @@ The web application is statically deploy on [Render](https://sudoku-play.onrende
 
 ## 📸 Screenshots
 
+- **Home Screen**
+> ![Home Screen](assets/sc1.png)
+- **Auto Fill Difficulty Selection Screen**
+> ![Auto Fill](assets/sc2.png)
+- **Manual Fill Screen**
+> ![Manual Fill](assets/sc3.png)
+- **Running Sudoku Game Screen**
+> ![Game Sudoku](assets/sc4.png)
+- **Game Over Screen**
+> ![Game Over](assets/sc6.png)
+- **Game Win Screen**
+> ![Game Win](assets/sc5.png)
+- **Language Selection Screen**
+> ![Language Selection](assets/sc7.png)
+
 ## 😎 Progressive Web App
 > [!WARNING] 
 > Firefox Desktop is not PWA ready... They aren't cool 🫤
