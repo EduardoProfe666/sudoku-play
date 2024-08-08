@@ -561,6 +561,13 @@ body {
     animation: fadeIn 0.3s ease-in-out;
 }
 
+.tab-content h3 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px #aaa;
+}
+
 .tab-content ul {
     list-style-type: none;
     padding: 0;
@@ -569,10 +576,11 @@ body {
 .tab-content ul li {
     background: #fff;
     margin: 10px 0;
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
 }
 
 .tab-content ul li:hover {
@@ -582,7 +590,17 @@ body {
 
 .tab-content ul li::before {
     content: '🔹';
-    margin-right: 10px;
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+.tab-content ul li p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    color: #333;
 }
 
 /* ----------------------------------- Responsive Stuff (Media Queries) ----------------------------------- */
@@ -645,11 +663,20 @@ body {
         font-size: 14px;
     }
 
-    .tab-content {
-        padding: 15px;
+    .tab-content h3 {
+        font-size: 20px;
     }
 
     .tab-content ul li {
-        padding: 8px;
+        padding: 10px;
+    }
+
+    .tab-content ul li::before {
+        left: -20px;
+        font-size: 16px;
+    }
+
+    .tab-content ul li p {
+        font-size: 14px;
     }
 }
